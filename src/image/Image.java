@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class Image {
 
-    private static final String ip = Config.IP;
+    private static final String ip = Config.SERVER_IP;
     private static final int port = Config.IMAGE_PORT;
     public static void main(String[] args) {
         try {
