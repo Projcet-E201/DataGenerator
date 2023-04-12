@@ -13,9 +13,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,11 +24,10 @@ import config.Config;
 public class Analog {
 	// 서버 정보
 	private static final String ip = Config.IP;
-	private static final int port = Config.PORT;
+	private static final int port = Config.SENSOR_PORT;
 
 	// 데이터 정보
 	private static final int sendDataSize = 200; // 해당 개수가 생성되면 데이터를 보낸다.
-	private static final int generateDataInterval = 5; // 5ms
 	private static final int retries= 3; // 재시도 횟수
 	private static final int FILE_SIZE = 400 * 1024; // 400kb
 	private static final String OUTPUT_DIRECTORY = "server_directory/"; // 저장위치
