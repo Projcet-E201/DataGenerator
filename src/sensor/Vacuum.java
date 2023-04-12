@@ -22,7 +22,7 @@ import config.Sensor;
  */
 public class Vacuum {
 	// 서버 정보
-	private static final String ip = Config.IP;
+	private static final String ip = Config.SERVER_IP;
 	private static final int port = Config.SENSOR_PORT;
 
 	// 데이터 정보

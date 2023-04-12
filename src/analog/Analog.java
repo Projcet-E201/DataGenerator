@@ -23,8 +23,8 @@ import config.Config;
 
 public class Analog {
 	// 서버 정보
-	private static final String ip = Config.IP;
-	private static final int port = Config.SENSOR_PORT;
+	private static final String ip = Config.LOCAL_IP;
+	private static final int port = Config.ANALOG_PORT;
 
 	// 데이터 정보
 	private static final int sendDataSize = 200; // 해당 개수가 생성되면 데이터를 보낸다.
@@ -44,7 +44,7 @@ public class Analog {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}, 0, 1, TimeUnit.MINUTES);
+		}, 0, 5, TimeUnit.SECONDS);
 
 
 		// 서버에 1시간마다 보낸다.
@@ -55,7 +55,7 @@ public class Analog {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}, 1, 1, TimeUnit.HOURS);
+		}, 5, 10, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -104,6 +104,8 @@ public class Analog {
 				Path destinationPath = Paths.get(OUTPUT_DIRECTORY, path.getFileName().toString());
 				// StandardCopyOption.REPLACE_EXISTING옵션을 사용하여 파일을 대상 경로로 이동
 				Files.move(path, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+				sendDataToServer(destinationPath.toString());
 			}
 		}
 	}
