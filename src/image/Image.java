@@ -1,34 +1,61 @@
+package image;
+
 import config.Config;
 
-import java.io.*;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Random;
+import javax.imageio.ImageIO;
 
 public class Image {
+//    private static final String IP = Config.SERVER_IP;
+    private static final String IP = Config.LOCAL_IP;
+    private static final int PORT = Config.IMAGE_PORT;
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket(IP, PORT);
+        OutputStream outputStream = socket.getOutputStream();
 
-    private static final String ip = Config.SERVER_IP;
-    private static final int port = Config.IMAGE_PORT;
-    public static void main(String[] args) {
-        try {
-            // 소켓 연결
+        while (true) {
+            // 이미지 생성 및 리사이징
+            BufferedImage image = new BufferedImage(512, 512, BufferedImage.TYPE_INT_RGB);
+            // 랜덤한 색상으로 이미지를 채움
+            Random random = new Random();
+            for (int y = 0; y < image.getHeight(); y++) {
+                for (int x = 0; x < image.getWidth(); x++) {
+                    int r = random.nextInt(256);
+                    int g = random.nextInt(256);
+                    int b = random.nextInt(256);
+                    int color = (r << 16) | (g << 8) | b;
+                    image.setRGB(x, y, color);
+                }
+            }
 
-            Socket socket = new Socket(ip, port);
+            BufferedImage resized = new BufferedImage(2048, 2048, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = resized.createGraphics();
+            g.drawImage(image, 0, 0, 2048, 2048, null);
+            g.dispose();
 
-            // 이미지 파일 읽기
-            File file = new File("server_directory/");
-            FileInputStream fis = new FileInputStream(file);
-            byte[] buffer = new byte[fis.available()];
-            fis.read(buffer);
-            fis.close();
+            // 이미지를 바이트 배열로 변환
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(resized, "jpg", baos);
+            byte[] bytes = baos.toByteArray();
 
-            // 서버로 데이터 전송
-            OutputStream out = socket.getOutputStream();
-            out.write(buffer);
-            out.flush();
+            // 서버로 이미지 전송
+            outputStream.write(bytes);
 
-            // 소켓 종료
-            socket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            // 10분마다 대기
+            try {
+//                10분에 한번
+//                Thread.sleep(10 * 60 * 1000);
+//                1초에 한번
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
