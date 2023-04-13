@@ -1,16 +1,10 @@
 package sensor;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import config.Config;
 import config.Sensor;
 
 /**
@@ -20,101 +14,56 @@ import config.Sensor;
  * 가공구간 - 5s
  */
 public class Motor {
-	// 서버 정보
-	private static final String ip = Config.SERVER_IP;
-	private static final int port = Config.SENSOR_PORT;
 
-	// 데이터 정보
-	private static final List<Integer> dataList = new ArrayList<>();
-	private static final int sendDataSize = 200; // 해당 개수가 생성되면 데이터를 보낸다.
-	private static final int generateDataInterval = 5; // 5ms
-	private static final int retries= 3; // 재시도 횟수
+	private final long id;
+	private final int generateDataInterval;
+	private final Random rand;
 
-	public static void main(String[] args) {
-		motorDataGeneratorAndSender();
+	public Motor(long id, int generateDataInterval) {
+		this.id = id;
+		this.generateDataInterval = generateDataInterval;
+		this.rand = new Random();
 	}
 
-
+	/**
+	 * Motor에서 진행하는 함수
+	 */
+	public void start() {
+		ScheduledExecutorService dataGenerator = Executors.newSingleThreadScheduledExecutor();
+		dataGenerator.scheduleAtFixedRate(this::motorDataGenerator, 0, generateDataInterval, TimeUnit.MILLISECONDS);
+	}
 
 	/**
 	 * 데이터를 5ms 마다 생성한다.
 	 */
-	private static void motorDataGeneratorAndSender() {
-		Random rand = new Random();
+	private void motorDataGenerator() {
+		// 데이터의 노이즈와 변동성을 추가하기 위해, 표준 편차가 있는 가우시간 분포 사용
+		double mean = 0;
+		double stdDev = 0.1;
 
 		// Generate data every 5 ms
-		ScheduledExecutorService motor1 = Executors.newSingleThreadScheduledExecutor();
-		motor1.scheduleAtFixedRate(() -> {
-			int data = rand.nextInt(600) - 300;
-			dataList.add(data);
+		int data = (int) Math.round(rand.nextGaussian() * stdDev * 600 + mean);
+		System.out.println(data);
+		data = Math.max(Math.min(data, 300), -300);
 
-			if (dataList.size() >= sendDataSize) {
-				sendDataToServer();
-			}
-
-		}, 0, generateDataInterval, TimeUnit.MILLISECONDS);
-
-
+		SensorDataDto sensorDataDto = new SensorDataDto(Sensor.MOTOR, this.id, data);
+		TcpServerSend.sendDataToServer(sensorDataDto);
 	}
 
-	/**
-	 * Data를 Socket으로 전송하는 함수
-	 */
-	private static void sendDataToServer() {
-		int maxRetries = retries; // 재시도 횟수
-		int currentAttempt = 0;
-		boolean successfulTransmission = false;
-		Socket socket = null;
-
-
-		List<Integer> dataToSend;
-		synchronized (dataList) {
-			dataToSend = new ArrayList<>(dataList);
-			dataList.clear();
+	public static void main(String[] args) {
+		// Start 10 Motor instances
+		for (int i = 0; i < 10; i++) {
+			Motor motor = new Motor(i, 5);
+			motor.start();
 		}
 
-		while (!successfulTransmission && currentAttempt < maxRetries) {
+		// Keep the application running
+		while (true) {
 			try {
-				// Socket 연결
-				socket = new Socket(ip, port);
-
-				// 데이터를 전송할 outputStream 생성
-				OutputStream outputStream = socket.getOutputStream();
-				System.out.println(dataToSend.size());
-
-				outputStream.write((Sensor.MOTOR + " ").getBytes());
-
-				// data를 집어넣음
-				for (Integer data : dataToSend) {
-					outputStream.write((data + " ").getBytes());
-				}
-				// data 전송
-				outputStream.close();
-
-				successfulTransmission = true;
-
+				Thread.sleep(1000); // Sleep for 1 second
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-			// 만약 전송에 문제가 생긴경우 (최대 3번 다시 보낸다.)
-			catch (IOException e) {
-				System.err.println("Failed to send data to server (attempt " + (currentAttempt + 1) + "): " + e.getMessage());
-				currentAttempt++;
-			}
-			// 전송이 끝나면 socket을 무조건 닫아준다.
-			finally {
-				if (socket != null) {
-					try {
-						socket.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-
-		if (successfulTransmission) {
-			System.out.println("Data sent successfully.");
-		} else {
-			System.out.println("Failed after " + maxRetries + " attempts.");
 		}
 	}
 }
