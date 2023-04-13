@@ -33,7 +33,7 @@ public class Motor {
 	 */
 	public void start() {
 		ScheduledExecutorService dataGenerator = Executors.newSingleThreadScheduledExecutor();
-		dataGenerator.scheduleAtFixedRate(this::motorDataGenerator, 0, generateDataInterval, TimeUnit.MILLISECONDS);
+		dataGenerator.scheduleAtFixedRate(this::motorDataGenerator, 0, generateDataInterval, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class Motor {
 	public static void main(String[] args) {
 		// Start 10 Motor instances
 		for (int i = 0; i < 10; i++) {
-			Motor motor = new Motor(i, 5);
+			Motor motor = new Motor(i, 1);
 			motor.start();
 			try {
 				Thread.sleep(1); // Add a small delay between starting each motor instance
