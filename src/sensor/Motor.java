@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import config.Config;
 import config.Sensor;
 
 /**
@@ -18,11 +19,13 @@ public class Motor {
 	private final long id;
 	private final int generateDataInterval;
 	private final Random rand;
+	private final TcpClient tcpClient;
 
 	public Motor(long id, int generateDataInterval) {
 		this.id = id;
 		this.generateDataInterval = generateDataInterval;
 		this.rand = new Random();
+		this.tcpClient = new TcpClient(Config.LOCAL_IP, Config.SENSOR_PORT);
 	}
 
 	/**
@@ -43,11 +46,27 @@ public class Motor {
 
 		// Generate data every 5 ms
 		int data = (int) Math.round(rand.nextGaussian() * stdDev * 600 + mean);
-		System.out.println(data);
 		data = Math.max(Math.min(data, 300), -300);
 
 		SensorDataDto sensorDataDto = new SensorDataDto(Sensor.MOTOR, this.id, data);
-		TcpServerSend.sendDataToServer(sensorDataDto);
+
+		int maxRetries = 3;
+		int currentAttempt = 0;
+		boolean successfulTransmission = false;
+
+		while (!successfulTransmission && currentAttempt < maxRetries) {
+			successfulTransmission = tcpClient.sendData(sensorDataDto);
+			if (!successfulTransmission) {
+				System.err.println("Failed to send data to server (attempt " + (currentAttempt + 1) + ")");
+				currentAttempt++;
+			}
+		}
+
+		if (successfulTransmission) {
+			// System.out.println("Data sent successfully.");
+		} else {
+			System.out.println("Failed after " + maxRetries + " attempts.");
+		}
 	}
 
 	public static void main(String[] args) {
