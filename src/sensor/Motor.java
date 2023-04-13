@@ -25,7 +25,7 @@ public class Motor {
 		this.id = id;
 		this.generateDataInterval = generateDataInterval;
 		this.rand = new Random();
-		this.tcpClient = new TcpClient(Config.LOCAL_IP, Config.SENSOR_PORT);
+		this.tcpClient = new TcpClient(Config.SERVER_IP, Config.SENSOR_PORT);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Motor {
 		}
 
 		if (successfulTransmission) {
-			// System.out.println("Data sent successfully.");
+			System.out.println("Data sent successfully.");
 		} else {
 			System.out.println("Failed after " + maxRetries + " attempts.");
 		}
