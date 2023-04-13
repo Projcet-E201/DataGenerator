@@ -14,12 +14,12 @@ public class SensorDataDto {
 		this.value = value;
 	}
 
-	public Sensor getSensorDataType() {
+	public Sensor getSensor() {
 		return sensor;
 	}
 
-	public void setSensorDataType(Sensor sensorDataDto) {
-		this.sensor = sensorDataDto;
+	public void setSensor(Sensor sensor) {
+		this.sensor = sensor;
 	}
 
 	public Integer getValue() {
@@ -28,5 +28,13 @@ public class SensorDataDto {
 
 	public void setValue(Integer value) {
 		this.value = value;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

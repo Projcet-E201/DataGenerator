@@ -28,8 +28,7 @@ public class TcpClient {
 	public boolean sendData(SensorDataDto sensorDataDto) {
 		try {
 			// insert data
-			outputStream.write((Sensor.MOTOR + " ").getBytes());
-			outputStream.write((sensorDataDto.getSensorDataType() + " " + sensorDataDto.getValue() + " ").getBytes());
+			outputStream.write((sensorDataDto.getSensor() + " " + sensorDataDto.getId() + " " + sensorDataDto.getValue() + "\n").getBytes());
 			outputStream.flush(); // Flush the buffer to send the data
 			return true;
 		} catch (IOException e) {

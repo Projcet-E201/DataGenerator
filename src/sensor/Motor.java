@@ -74,6 +74,11 @@ public class Motor {
 		for (int i = 0; i < 10; i++) {
 			Motor motor = new Motor(i, 5);
 			motor.start();
+			try {
+				Thread.sleep(1); // Add a small delay between starting each motor instance
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		// Keep the application running
