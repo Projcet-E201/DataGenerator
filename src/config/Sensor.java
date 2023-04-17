@@ -1,6 +1,6 @@
-package com.example.generator.util;
+package config;
 
-public enum SensorType {
+public enum Sensor {
 	MOTOR,
 	VACUUM,
 	AIR1,
@@ -10,4 +10,5 @@ public enum SensorType {
 	ABRASION, // 마모
 	LOAD, // 부하
 	ROTATION, // 회전량
+
 }

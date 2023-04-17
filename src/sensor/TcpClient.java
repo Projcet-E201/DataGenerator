@@ -1,17 +1,19 @@
-package network;
-
-import data.sensor.dto.SensorDataDto;
+package sensor;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 
-public class TcpClientHandler {
+import config.Config;
+import config.Sensor;
+
+public class TcpClient {
 
 	private Socket socket;
 	private BufferedOutputStream outputStream;
 
-	public TcpClientHandler(String ip, int port) {
+	public TcpClient(String ip, int port) {
 		try {
 			socket = new Socket(ip, port);
 			outputStream = new BufferedOutputStream(socket.getOutputStream());
