@@ -1,0 +1,38 @@
+netty:
+  host: "127.0.0.1"
+  port: 9999
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: client1
+
+server:
+  port: 8080
+
+client:
+  name: "server1"
+---
+spring:
+  config:
+    activate:
+      on-profile: client2
+
+server:
+  port: 8081
+
+client:
+  name: "server2"
+---
+spring:
+  config:
+    activate:
+      on-profile: client3
+
+server:
+  port: 8082
+
+client:
+  name: "server3"
