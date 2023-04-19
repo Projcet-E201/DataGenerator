@@ -24,4 +24,6 @@ public class NettyChannelInitializer extends ChannelInitializer<SocketChannel> {
 		// Inbound 핸들러 등록
 		pipeline.addLast(nettyOutboundHandler);
 	}
+
+
 }

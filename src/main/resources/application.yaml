@@ -1,6 +1,8 @@
 netty:
   host: "127.0.0.1"
-  port: 9999
+  data-port: 9997
+  analog-port: 9998
+  image-port: 9999
 
 
 ---

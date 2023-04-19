@@ -9,10 +9,11 @@ import javax.annotation.PreDestroy;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.example.client.data.analog.AnalogManager;
 import com.example.client.data.global.AbstractDataManager;
+import com.example.client.data.image.ImageManager;
 import com.example.client.data.machinestate.MachineStateManager;
 import com.example.client.data.sensor.abrasion.AbrasioManager;
 import com.example.client.data.sensor.air.AirInKpaManager;
@@ -50,6 +51,9 @@ public class ApplicationStartupTask implements ApplicationListener<ApplicationRe
 	private final VelocityManager velocityManager;
 
 	private final MachineStateManager machineState;
+
+	private final AnalogManager analogManager;
+	private final ImageManager imageManager;
 
 	private Channel clientChannel;
 	private List<AbstractDataManager<?>> managers;

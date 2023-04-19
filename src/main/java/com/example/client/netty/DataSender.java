@@ -1,6 +1,7 @@
 package com.example.client.netty;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -26,10 +27,10 @@ public class DataSender {
 	public <T> void sendData(Channel channel, String dataType,T data) {
 
 		// 데이터 전송시간 ex) 2023-04-17/10:12:34.123
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.SSS");
-		String currentTime = LocalDateTime.now().format(formatter);
+		LocalDateTime currentTime = LocalDateTime.now();
+		long unixTimestamp = currentTime.toEpochSecond(ZoneOffset.UTC);
 
-		String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
+		String combinedData = clientName + " " + dataType + " " + data + " " + unixTimestamp;
 
 		ChannelFuture future = channel.writeAndFlush(combinedData);
 

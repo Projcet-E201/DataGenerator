@@ -17,12 +17,17 @@ public class NettyClientConfiguration {
 	@Value("${netty.host}")
 	private String host;
 
-	@Value("${netty.port}")
-	private int port;
+	@Value("${netty.data-port}")
+	private int dataPort;
+	@Value("${netty.analog-port}")
+	private int analogPort;
+	@Value("${netty.image-port}")
+	private int imagePort;
+
 
 	@Bean
-	public InetSocketAddress inetSocketAddress() {
-		return new InetSocketAddress(host, port);
+	public InetSocketAddress dataInetSocketAddress() {
+		return new InetSocketAddress(host, dataPort);
 	}
 
 
