@@ -9,6 +9,7 @@ import com.example.client.util.DataInfo;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 public class MachineState extends AbstractData<String> {
 

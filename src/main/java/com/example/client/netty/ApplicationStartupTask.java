@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.example.client.data.global.AbstractDataManager;
@@ -52,6 +53,7 @@ public class ApplicationStartupTask implements ApplicationListener<ApplicationRe
 
 	private Channel clientChannel;
 	private List<AbstractDataManager<?>> managers;
+
 
 	@PostConstruct
 	private void init(){
