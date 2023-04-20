@@ -22,7 +22,9 @@ public class AirInKpa extends AbstractData<Integer> {
 	}
 
 	public void dataSend(Channel channel) {
-		sendDataScheduler.scheduleAtFixedRate(() -> dataSender.sendData(channel, dataType, dataQueue.poll()), DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME,
+		sendDataScheduler.scheduleAtFixedRate(
+			() -> dataSender.sendData(channel, dataType, dataQueue.poll()),
+			DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME,
 			DataInfo.AIR_IN_KPA_CALCULATE_TIME_UNIT);
 	}
 }
