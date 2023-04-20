@@ -2,7 +2,6 @@ package com.example.client.netty;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ public class DataSender {
 	 * @param channel netty 채널
 	 * @param dataType ex) MOTOR, AIR ...
 	 */
-	public <T> void sendData(Channel channel, String dataType,T data) {
+	public <T> void sendData(Channel channel, String dataType, T data) {
 
 		// 데이터 전송시간 ex) 2023-04-17/10:12:34.123
 		LocalDateTime currentTime = LocalDateTime.now();
@@ -41,7 +40,7 @@ public class DataSender {
 				// TODO 실패시 로직 처리
 
 			} else {
-				log.info("Data sent successfully. Data: {}", combinedData);
+				log.info("Data sent successfully. Data:");
 			}
 		});
 	}

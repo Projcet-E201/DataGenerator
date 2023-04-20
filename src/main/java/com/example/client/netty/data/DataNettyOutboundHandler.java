@@ -1,4 +1,4 @@
-package com.example.client.netty;
+package com.example.client.netty.data;
 
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @ChannelHandler.Sharable
 @RequiredArgsConstructor
-public class NettyOutboundHandler extends MessageToByteEncoder<String> {
+public class DataNettyOutboundHandler extends MessageToByteEncoder<String> {
 	@Override
 	protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) {
 		ByteBuf message = Unpooled.copiedBuffer(msg, CharsetUtil.UTF_8);

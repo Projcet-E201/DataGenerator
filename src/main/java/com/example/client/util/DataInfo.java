@@ -76,8 +76,8 @@ public class DataInfo {
 
 	// Analog 정보
 	public static final int ANALOG_COUNT = 1;
-	public static final int ANALOG_GENERATE_TIME = 1;
-	public static final int ANALOG_CALCULATE_TIME = 1;
+	public static final int ANALOG_GENERATE_TIME = 5;
+	public static final int ANALOG_CALCULATE_TIME = 10;
 	public static final TimeUnit ANALOG_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit ANALOG_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 

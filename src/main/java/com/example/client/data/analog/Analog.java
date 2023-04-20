@@ -49,7 +49,8 @@ public class Analog extends AbstractData<String> {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
 			String data = dataQueue.poll();
 			if (data != null) {
-				dataSender.sendData(channel, dataType, data);
+				String dataConvent = data + "|";
+				dataSender.sendData(channel, dataType, dataConvent);
 			}
 		}, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME_UNIT);
 	}
