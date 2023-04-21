@@ -3,20 +3,30 @@ package com.example.client.netty;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class DataSender {
 
 	@Value("${client.name}")
 	private String clientName;
+
+	private final KafkaTemplate<String, String> kafkaTemplate;
 
 	/**
 	 *
@@ -31,16 +41,18 @@ public class DataSender {
 
 		String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
-		ChannelFuture future = channel.writeAndFlush(combinedData);
+		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(dataType, combinedData);
+		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+			@Override
+			public void onFailure(Throwable ex) {
+				System.err.println("Error while sending message: " + ex.getMessage());
+			}
 
-		future.addListener((ChannelFutureListener)channelFuture -> {
-			if (!channelFuture.isSuccess()) {
-				log.error("Failed to send data. Retrying...");
-
-				// TODO 실패시 로직 처리
-
-			} else {
-				log.info("Data sent successfully. Data: {}", combinedData);
+			@Override
+			public void onSuccess(SendResult<String, String> result) {
+				RecordMetadata metadata = result.getRecordMetadata();
+				System.out.println("Message sent to partition " + metadata.partition() +
+						" with offset " + metadata.offset());
 			}
 		});
 	}

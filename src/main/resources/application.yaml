@@ -1,13 +1,16 @@
 netty:
   host: "127.0.0.1"
-  port: 9999
+  data-port: 9997
+  analog-port: 9998
+  image-port: 9999
 
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: plaintext+netty://localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 
 ---
 spring:
