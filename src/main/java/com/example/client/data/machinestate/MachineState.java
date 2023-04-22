@@ -24,25 +24,25 @@ public class MachineState extends AbstractData<String> {
 			StringBuilder data = new StringBuilder();
 
 			// Boolean Type 데이터 생성
-			for (int i = 0; i < 10; i++) {
+			for (int i = 1; i <= 10; i++) {
 				data.append("boolean").append(i).append(":");
 				data.append(random.nextBoolean() ? 1 : 0).append(",");
 			}
 
 			// Double Type 데이터 생성
-			for (int i = 0; i < 10; i++) {
+			for (int i = 1; i <= 10; i++) {
 				data.append("double").append(i).append(":");
 				data.append(String.format("%.3f", random.nextDouble() * 310.0 - 10.0)).append(",");
 			}
 
 			// Int Type 데이터 생성
-			for (int i = 0; i < 10; i++) {
+			for (int i = 1; i <= 10; i++) {
 				data.append("int").append(i).append(":");
 				data.append(random.nextInt(1101) - 100).append(",");
 			}
 
 			// String Type 데이터 생성
-			for (int i = 0; i < 10; i++) {
+			for (int i = 1; i <= 10; i++) {
 				data.append("string").append(i).append(":");
 				String randomString = RandomStringUtils.randomAlphanumeric(random.nextInt(51));
 				data.append(randomString).append(",");

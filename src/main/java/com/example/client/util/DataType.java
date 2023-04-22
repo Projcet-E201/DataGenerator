@@ -11,6 +11,8 @@ public enum DataType {
 	LOAD, // 부하
 	VELOCITY, // 회전량
 	MACHINE_STATE,
+	ANALOG,
+	IMAGE,
 
 
 }
