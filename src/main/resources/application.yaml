@@ -6,7 +6,7 @@ netty:
 
 spring:
   kafka:
-    bootstrap-servers: plaintext+netty://localhost:9092
+    bootstrap-servers: plaintext://3.17.63.229:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

@@ -23,7 +23,7 @@ public class DataSender {
 	@Value("${client.name}")
 	private String clientName;
 
-	private final KafkaTemplate<String, String> kafkaTemplate;
+	private final KafkaTemplate kafkaTemplate;
 
 	/**
 	 *
@@ -38,8 +38,10 @@ public class DataSender {
 
 		String combinedData = clientName + " " + dataType + " " + data + " " + unixTimestamp;
 
-		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(dataType, combinedData);
-		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+		System.out.println("===============> send data : " + combinedData);
+		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send("Test", combinedData);
+
+		future.addCallback(new ListenableFutureCallback<>() {
 			@Override
 			public void onFailure(Throwable ex) {
 				System.err.println("Error while sending message: " + ex.getMessage());
