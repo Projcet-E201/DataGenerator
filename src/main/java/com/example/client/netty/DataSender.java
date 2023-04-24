@@ -5,7 +5,6 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,8 +12,6 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -27,7 +24,7 @@ public class DataSender {
 	@Value("${client.name}")
 	private String clientName;
 
-	private final KafkaTemplate<String, String> kafkaTemplate;
+	private final KafkaTemplate kafkaTemplate;
 
 	/**
 	 *
@@ -42,8 +39,10 @@ public class DataSender {
 
 		String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
-		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(dataType, combinedData);
-		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+		System.out.println("===============> send data : " + combinedData);
+		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send("Test", combinedData);
+
+		future.addCallback(new ListenableFutureCallback<>() {
 			@Override
 			public void onFailure(Throwable ex) {
 				System.err.println("Error while sending message: " + ex.getMessage());
