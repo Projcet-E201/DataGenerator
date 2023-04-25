@@ -33,7 +33,7 @@ public class Image extends AbstractData<String> {
 			if (data != null) {
 				// 데이터 구분자
 				String dataConvent = data + "|";
-				dataSender.sendData(channel, dataType, dataConvent);
+				dataSender.sendData("IMAGE", dataType, dataConvent);
 			}
 		}, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME_UNIT);
 	}

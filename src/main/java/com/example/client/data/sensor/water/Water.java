@@ -6,9 +6,13 @@ import com.example.client.util.DataInfo;
 
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 public class Water extends AbstractData<Integer> {
+
+	@Value("${client.name}")
+	private String clientName;
 
 	public Water(DataSender dataSender, String dataType) {
 		super(dataSender, dataType);
@@ -31,7 +35,7 @@ public class Water extends AbstractData<Integer> {
 				maxData = Math.max(maxData, data);
 			}
 
-			dataSender.sendData(channel, dataType, maxData);
+			dataSender.sendData(clientName, dataType, maxData);
 		}, DataInfo.WATER_CALCULATE_TIME, DataInfo.WATER_CALCULATE_TIME, DataInfo.WATER_CALCULATE_TIME_UNIT);
 	}
 }

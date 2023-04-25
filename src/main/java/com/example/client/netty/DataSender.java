@@ -28,10 +28,10 @@ public class DataSender {
 
 	/**
 	 *
-	 * @param channel netty 채널
+	 * @param topic kafka topic 설정
 	 * @param dataType ex) MOTOR, AIR ...
 	 */
-	public <T> void sendData(Channel channel, String dataType,T data) {
+	public <T> void sendData(String topic, String dataType,T data) {
 
 		// 데이터 전송시간 ex) 2023-04-17/10:12:34.123
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.SSS");
@@ -39,8 +39,8 @@ public class DataSender {
 
 		String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
-		System.out.println("===============> send data : " + combinedData);
-		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send("Test", combinedData);
+		// 머신별로 토픽을 나누고, 내부 파티션에서는 라운드로빈 방식으로 저장
+		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, combinedData);
 
 		future.addCallback(new ListenableFutureCallback<>() {
 			@Override

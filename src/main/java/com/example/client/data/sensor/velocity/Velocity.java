@@ -6,10 +6,14 @@ import com.example.client.util.DataInfo;
 
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 // Velocity 클래스 구현
 @Slf4j
 public class Velocity extends AbstractData<Integer> {
+
+	@Value("${client.name}")
+	private String clientName;
 
 	public Velocity(DataSender dataSender, String dataType) {
 		super(dataSender, dataType);
@@ -33,7 +37,7 @@ public class Velocity extends AbstractData<Integer> {
 				maxData = Math.max(maxData, data);
 			}
 
-			dataSender.sendData(channel, dataType, maxData);
+			dataSender.sendData(clientName, dataType, maxData);
 		}, DataInfo.VELOCITY_CALCULATE_TIME, DataInfo.VELOCITY_CALCULATE_TIME, DataInfo.VELOCITY_CALCULATE_TIME_UNIT);
 	}
 }

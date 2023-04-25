@@ -9,9 +9,11 @@ import com.example.client.netty.DataSender;
 
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 public abstract class AbstractData<T> {
+
 	protected final Random random = new Random();
 	protected final String dataType;
 	protected final DataSender dataSender;

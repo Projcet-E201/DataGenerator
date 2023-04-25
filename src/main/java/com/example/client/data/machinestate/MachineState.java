@@ -57,7 +57,7 @@ public class MachineState extends AbstractData<String> {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
 			String data = dataQueue.poll();
 			if (data != null) {
-				dataSender.sendData(channel, dataType, data);
+				dataSender.sendData("STATE_INT", dataType, data);
 			}
 		}, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME_UNIT);
 	}

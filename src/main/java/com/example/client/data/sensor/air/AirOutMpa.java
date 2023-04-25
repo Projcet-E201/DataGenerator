@@ -6,9 +6,13 @@ import com.example.client.util.DataInfo;
 
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 public class AirOutMpa extends AbstractData<Double> {
+
+	@Value("${client.name}")
+	private String clientName;
 
 	public AirOutMpa(DataSender dataSender, String dataType) {
 		super(dataSender, dataType);
@@ -29,7 +33,7 @@ public class AirOutMpa extends AbstractData<Double> {
 					maxData = Math.max(maxData, data);
 				}
 
-				dataSender.sendData(channel, dataType, maxData);
+				dataSender.sendData(clientName, dataType, maxData);
 			}, DataInfo.AIR_OUT_MPA_CALCULATE_TIME, DataInfo.AIR_OUT_MPA_CALCULATE_TIME,
 			DataInfo.AIR_OUT_MPA_CALCULATE_TIME_UNIT);
 	}

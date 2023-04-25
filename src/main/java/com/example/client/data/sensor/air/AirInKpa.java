@@ -6,9 +6,13 @@ import com.example.client.util.DataInfo;
 
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 public class AirInKpa extends AbstractData<Integer> {
+
+	@Value("${client.name}")
+	private String clientName;
 
 	public AirInKpa(DataSender dataSender, String dataType) {
 		super(dataSender, dataType);
@@ -23,7 +27,7 @@ public class AirInKpa extends AbstractData<Integer> {
 
 	public void dataSend(Channel channel) {
 		sendDataScheduler.scheduleAtFixedRate(
-			() -> dataSender.sendData(channel, dataType, dataQueue.poll()),
+			() -> dataSender.sendData(clientName, dataType, dataQueue.poll()),
 			DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME,
 			DataInfo.AIR_IN_KPA_CALCULATE_TIME_UNIT);
 	}
