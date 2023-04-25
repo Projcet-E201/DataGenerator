@@ -4,6 +4,10 @@ netty:
   analog-port: 9998
   image-port: 9999
 
+spring:
+  profiles:
+    active: client1
+
 
 ---
 spring:
@@ -15,7 +19,7 @@ server:
   port: 8080
 
 client:
-  name: "server1"
+  name: "SERVER1"
 ---
 spring:
   config:
@@ -26,7 +30,7 @@ server:
   port: 8081
 
 client:
-  name: "server2"
+  name: "SERVER2"
 ---
 spring:
   config:
@@ -37,4 +41,4 @@ server:
   port: 8082
 
 client:
-  name: "server3"
+  name: "SERVER3"
