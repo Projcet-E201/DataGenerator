@@ -1,10 +1,9 @@
 package com.example.client.data.sensor.air;
 
 import com.example.client.data.global.AbstractData;
-import com.example.client.netty.DataSender;
+import com.example.client.kafka.KafkaDataSender;
 import com.example.client.util.DataInfo;
 
-import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -14,8 +13,8 @@ public class AirOutKpa extends AbstractData<Integer> {
 	@Value("${client.name}")
 	private String clientName;
 
-	public AirOutKpa(DataSender dataSender, String dataType) {
-		super(dataSender, dataType);
+	public AirOutKpa(KafkaDataSender kafkaDataSender, String dataType) {
+		super(kafkaDataSender, dataType);
 	}
 
 	public void dataGenerate() {
@@ -26,17 +25,18 @@ public class AirOutKpa extends AbstractData<Integer> {
 		}, 0, DataInfo.AIR_OUT_KPA_GENERATE_TIME, DataInfo.AIR_OUT_KPA_GENERATE_TIME_UNIT);
 	}
 
-	public void dataSend(Channel channel) {
+	@Override
+	public void kafkaDataSend() {
 		// 30초마다 생성된 데이터 중 최대값을 찾는 코드
 		sendDataScheduler.scheduleAtFixedRate(() -> {
-				int maxData = Integer.MIN_VALUE;
-				Integer data;
-				while ((data = dataQueue.poll()) != null) {
-					maxData = Math.max(maxData, data);
-				}
+			int maxData = Integer.MIN_VALUE;
+			Integer data;
+			while ((data = dataQueue.poll()) != null) {
+				maxData = Math.max(maxData, data);
+			}
 
-				dataSender.sendData(clientName, dataType, maxData);
-			}, DataInfo.AIR_OUT_KPA_CALCULATE_TIME, DataInfo.AIR_OUT_KPA_CALCULATE_TIME,
-			DataInfo.AIR_OUT_KPA_CALCULATE_TIME_UNIT);
+			kafkaDataSender.sendData(clientName, dataType, maxData);
+		}, DataInfo.AIR_OUT_KPA_CALCULATE_TIME, DataInfo.AIR_OUT_KPA_CALCULATE_TIME,
+		DataInfo.AIR_OUT_KPA_CALCULATE_TIME_UNIT);
 	}
 }

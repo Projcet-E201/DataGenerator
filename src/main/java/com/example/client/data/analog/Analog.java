@@ -8,10 +8,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import com.example.client.data.global.AbstractData;
-import com.example.client.netty.DataSender;
+import com.example.client.kafka.KafkaDataSender;
 import com.example.client.util.DataInfo;
 
-import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,8 +18,8 @@ public class Analog extends AbstractData<String> {
 
 	private final byte[] randomBinaryData;
 
-	public Analog(DataSender dataSender, String dataType) {
-		super(dataSender, dataType);
+	public Analog(KafkaDataSender kafkaDataSender, String dataType) {
+		super(kafkaDataSender, dataType);
 		randomBinaryData = new byte[400 * 1024]; // 400KB
 	}
 
@@ -45,12 +44,12 @@ public class Analog extends AbstractData<String> {
 	}
 
 	@Override
-	public void dataSend(Channel channel) {
+	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
 			String data = dataQueue.poll();
 			if (data != null) {
 				String dataConvent = data + "|";
-				dataSender.sendData("ANALOG", dataType, dataConvent);
+				kafkaDataSender.sendData("ANALOG", dataType, dataConvent);
 			}
 		}, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME_UNIT);
 	}

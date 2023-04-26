@@ -4,16 +4,15 @@ import java.util.Base64;
 import java.util.Random;
 
 import com.example.client.data.global.AbstractData;
-import com.example.client.netty.DataSender;
+import com.example.client.kafka.KafkaDataSender;
 import com.example.client.util.DataInfo;
 
-import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Image extends AbstractData<String> {
-	public Image(DataSender dataSender, String dataType) {
-		super(dataSender, dataType);
+	public Image(KafkaDataSender kafkaDataSender, String dataType) {
+		super(kafkaDataSender, dataType);
 	}
 
 	@Override
@@ -27,13 +26,13 @@ public class Image extends AbstractData<String> {
 	}
 
 	@Override
-	public void dataSend(Channel channel) {
+	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
 			String data = dataQueue.poll();
 			if (data != null) {
 				// 데이터 구분자
 				String dataConvent = data + "|";
-				dataSender.sendData("IMAGE", dataType, dataConvent);
+				kafkaDataSender.sendData("IMAGE", dataType, dataConvent);
 			}
 		}, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME_UNIT);
 	}
