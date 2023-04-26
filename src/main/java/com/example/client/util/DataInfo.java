@@ -86,8 +86,8 @@ public class DataInfo {
 	public static final int IMAGE_COUNT = 1;
 	public static final int IMAGE_GENERATE_TIME = 5;
 	public static final int IMAGE_CALCULATE_TIME = 5;
-	public static final TimeUnit IMAGE_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
-	public static final TimeUnit IMAGE_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
+	public static final TimeUnit IMAGE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;	// MINUTES
+	public static final TimeUnit IMAGE_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;	// MINUTES
 
 
 	public static int getDataCountByType(DataType dataType) {

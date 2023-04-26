@@ -16,7 +16,7 @@ server:
   port: 8080
 
 client:
-  name: "server1"
+  name: "CLIENT1"
 ---
 spring:
   config:
@@ -27,7 +27,7 @@ server:
   port: 8081
 
 client:
-  name: "server2"
+  name: "CLIENT2"
 ---
 spring:
   config:
@@ -38,4 +38,4 @@ server:
   port: 8082
 
 client:
-  name: "server3"
+  name: "CLIENT3"

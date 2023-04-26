@@ -36,7 +36,11 @@ public class KafkaDataSender {
         String currentTime = LocalDateTime.now().format(formatter);
 
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
-        log.info("[sendData] : {}", combinedData);
+
+        // 이미지 자르기
+        if (dataType.startsWith("IMAGE")) {
+
+        }
 
         // 머신별로 토픽을 나누고, 내부 파티션에서는 라운드로빈 방식으로 저장
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, combinedData);
@@ -50,7 +54,7 @@ public class KafkaDataSender {
             @Override
             public void onSuccess(SendResult<String, String> result) {
                 RecordMetadata metadata = result.getRecordMetadata();
-                System.out.println("Message sent to partition " + metadata.partition() +
+                System.out.println("Message sent to partition " +  metadata.topic() + " - " + metadata.partition() +
                         " with offset " + metadata.offset());
             }
         });
