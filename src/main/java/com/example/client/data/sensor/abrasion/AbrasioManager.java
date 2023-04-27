@@ -1,6 +1,8 @@
 package com.example.client.data.sensor.abrasion;
 
-import com.example.client.kafka.KafkaDataSender;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
+import com.example.client.kafka.sender.SensorSender;
 import org.springframework.stereotype.Component;
 
 import com.example.client.data.global.AbstractDataManager;
@@ -12,12 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class AbrasioManager extends AbstractDataManager<Abrasio> {
 
-	public AbrasioManager(KafkaDataSender kafkaDataSender) {
-		super(kafkaDataSender, DataType.ABRASION);
+	public AbrasioManager(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender) {
+		super(dataSender, chunkDataSender, sensorSender, DataType.ABRASION);
 	}
 
 	@Override
 	protected Abrasio createDataInstance(String dataType) {
-		return new Abrasio(kafkaDataSender, dataType);
+		return new Abrasio(dataSender, chunkDataSender, sensorSender, dataType);
 	}
 }

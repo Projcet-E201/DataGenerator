@@ -15,9 +15,10 @@ import com.example.client.data.sensor.velocity.VelocityManager;
 import com.example.client.data.sensor.water.WaterManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ApplicationStartUpTask {
+public class ApplicationStartUpTask implements ApplicationListener<ApplicationReadyEvent> {
 
     private final MotorManager motorManager;
     private final VacuumManager vacuumManager;
@@ -41,8 +42,8 @@ public class ApplicationStartUpTask {
     private final ImageManager imageManager;
     protected List<AbstractDataManager<?>> managers = new ArrayList<>();
 
-    @PostConstruct
-    private void init() {
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
         managers = Arrays.asList(
                 motorManager,
                 vacuumManager,

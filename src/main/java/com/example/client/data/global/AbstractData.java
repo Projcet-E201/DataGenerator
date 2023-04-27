@@ -5,23 +5,30 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import com.example.client.kafka.KafkaDataSender;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
 
+import com.example.client.kafka.sender.SensorSender;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractData<T> {
 
-	protected final Random random = new Random();
+	protected final DataSender dataSender;
+	protected final ChunkDataSender chunkDataSender;
+	protected final SensorSender sensorSender;
+
 	protected final String dataType;
-	protected final KafkaDataSender kafkaDataSender;
+	protected final Random random = new Random();
 	protected final ConcurrentLinkedQueue<T> dataQueue = new ConcurrentLinkedQueue<>();
 
 	protected final ScheduledExecutorService dataGenerationScheduler = Executors.newScheduledThreadPool(1);
 	protected final ScheduledExecutorService sendDataScheduler = Executors.newScheduledThreadPool(1);
 
-	public AbstractData(KafkaDataSender kafkaDataSender, String dataType) {
-		this.kafkaDataSender = kafkaDataSender;
+	public AbstractData(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
+		this.dataSender = dataSender;
+		this.chunkDataSender = chunkDataSender;
+		this.sensorSender = sensorSender;
 		this.dataType = dataType;
 	}
 

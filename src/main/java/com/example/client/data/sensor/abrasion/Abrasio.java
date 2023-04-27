@@ -1,20 +1,18 @@
 package com.example.client.data.sensor.abrasion;
 
 import com.example.client.data.global.AbstractData;
-import com.example.client.kafka.KafkaDataSender;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
+import com.example.client.kafka.sender.SensorSender;
 import com.example.client.util.DataInfo;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 public class Abrasio extends AbstractData<Integer> {
 
-	@Value("${client.name}")
-	private String clientName;
-
-	public Abrasio(KafkaDataSender kafkaDataSender, String dataType) {
-		super(kafkaDataSender, dataType);
+	public Abrasio(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
+		super(dataSender, chunkDataSender, sensorSender, dataType);
 	}
 
 	@Override
@@ -34,7 +32,7 @@ public class Abrasio extends AbstractData<Integer> {
 				maxData = Math.max(maxData, data);
 			}
 
-			kafkaDataSender.sendData(clientName, dataType, maxData);
+			sensorSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.ABRASION_CALCULATE_TIME, DataInfo.ABRASION_CALCULATE_TIME, DataInfo.ABRASION_CALCULATE_TIME_UNIT);
 	}
 }

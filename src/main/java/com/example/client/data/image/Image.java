@@ -4,15 +4,17 @@ import java.util.Base64;
 import java.util.Random;
 
 import com.example.client.data.global.AbstractData;
-import com.example.client.kafka.KafkaDataSender;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
+import com.example.client.kafka.sender.SensorSender;
 import com.example.client.util.DataInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Image extends AbstractData<String> {
-	public Image(KafkaDataSender kafkaDataSender, String dataType) {
-		super(kafkaDataSender, dataType);
+	public Image(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
+		super(dataSender, chunkDataSender, sensorSender, dataType);
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public class Image extends AbstractData<String> {
 			if (data != null) {
 				// 데이터 구분자
 				String dataConvent = data + "|";
-				kafkaDataSender.sendData("IMAGE", dataType, dataConvent);
+				chunkDataSender.sendData("IMAGE", dataType, dataConvent);
 			}
 		}, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME_UNIT);
 	}

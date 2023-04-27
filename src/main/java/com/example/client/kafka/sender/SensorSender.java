@@ -1,5 +1,4 @@
-package com.example.client.kafka;
-
+package com.example.client.kafka.sender;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class KafkaDataSender {
+public class SensorSender {
 
     @Value("${client.name}")
     private String clientName;
@@ -37,13 +36,8 @@ public class KafkaDataSender {
 
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
-        // 이미지 자르기
-        if (dataType.startsWith("IMAGE")) {
-
-        }
-
         // 머신별로 토픽을 나누고, 내부 파티션에서는 라운드로빈 방식으로 저장
-        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, combinedData);
+        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(clientName, combinedData);
 
         future.addCallback(new ListenableFutureCallback<>() {
             @Override
@@ -55,7 +49,7 @@ public class KafkaDataSender {
             public void onSuccess(SendResult<String, String> result) {
                 RecordMetadata metadata = result.getRecordMetadata();
                 System.out.println("Message sent to partition " +  metadata.topic() + " - " + metadata.partition() +
-                        " with offset " + metadata.offset());
+                        " with offset " + metadata.offset() + " at " + metadata.timestamp());
             }
         });
     }

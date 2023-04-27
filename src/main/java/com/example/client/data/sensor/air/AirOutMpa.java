@@ -1,20 +1,17 @@
 package com.example.client.data.sensor.air;
 
 import com.example.client.data.global.AbstractData;
-import com.example.client.kafka.KafkaDataSender;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
+import com.example.client.kafka.sender.SensorSender;
 import com.example.client.util.DataInfo;
-
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
 public class AirOutMpa extends AbstractData<Double> {
 
-	@Value("${client.name}")
-	private String clientName;
-
-	public AirOutMpa(KafkaDataSender kafkaDataSender, String dataType) {
-		super(kafkaDataSender, dataType);
+	public AirOutMpa(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
+		super(dataSender, chunkDataSender, sensorSender, dataType);
 	}
 
 	public void dataGenerate() {
@@ -33,7 +30,7 @@ public class AirOutMpa extends AbstractData<Double> {
 				maxData = Math.max(maxData, data);
 			}
 
-			kafkaDataSender.sendData(clientName, dataType, maxData);
+			sensorSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.AIR_OUT_MPA_CALCULATE_TIME, DataInfo.AIR_OUT_MPA_CALCULATE_TIME,
 		DataInfo.AIR_OUT_MPA_CALCULATE_TIME_UNIT);
 	}

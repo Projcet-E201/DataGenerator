@@ -1,6 +1,8 @@
 package com.example.client.data.machinestate;
 
-import com.example.client.kafka.KafkaDataSender;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
+import com.example.client.kafka.sender.SensorSender;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.example.client.data.global.AbstractData;
@@ -12,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MachineState extends AbstractData<String> {
 
-	public MachineState(KafkaDataSender kafkaDataSender, String dataType) {
-		super(kafkaDataSender, dataType);
+	public MachineState(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
+		super(dataSender, chunkDataSender, sensorSender, dataType);
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class MachineState extends AbstractData<String> {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
 			String data = dataQueue.poll();
 			if (data != null) {
-				kafkaDataSender.sendData("MACHINE_STATE", dataType, data);
+				dataSender.sendData("MACHINE_STATE", dataType, data);
 			}
 		}, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME_UNIT);
 	}
