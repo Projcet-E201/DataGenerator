@@ -13,6 +13,4 @@ public enum DataType {
 	MACHINE_STATE,
 	ANALOG,
 	IMAGE,
-
-
 }
