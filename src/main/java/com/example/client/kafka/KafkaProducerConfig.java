@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-public class KafkaTemplateConfig {
+public class KafkaProducerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
@@ -26,6 +26,7 @@ public class KafkaTemplateConfig {
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, RecoveringProducerInterceptor.class);
         config.put(ProducerConfig.ACKS_CONFIG, "all");
 
         return new DefaultKafkaProducerFactory<>(config);

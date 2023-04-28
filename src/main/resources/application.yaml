@@ -4,6 +4,11 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  influx:
+    user: ahyeon
+    url: 54.180.117.54:8086
+    password: 12wq12wq!
+    token: Ook-BIskxsxeW116i3DsDop9wSus-90AWPX68HPiG1T1_N6ZW-_soljGI4fTG2EH5FrNAeFTwDpgPPYnvs5rGQ==
 
 
 ---
