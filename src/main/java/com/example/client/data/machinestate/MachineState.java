@@ -44,7 +44,7 @@ public class MachineState extends AbstractData<String> {
 			// String Type 데이터 생성
 			for (int i = 1; i <= 10; i++) {
 				data.append("string").append(i).append(":");
-				String randomString = RandomStringUtils.randomAlphanumeric(random.nextInt(51));
+				String randomString = RandomStringUtils.randomAlphanumeric(1 + random.nextInt(50));
 				data.append(randomString).append(",");
 			}
 
