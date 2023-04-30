@@ -9,6 +9,9 @@ spring:
     url: 54.180.117.54:8086
     password: 12wq12wq!
     token: Ook-BIskxsxeW116i3DsDop9wSus-90AWPX68HPiG1T1_N6ZW-_soljGI4fTG2EH5FrNAeFTwDpgPPYnvs5rGQ==
+  redis:
+    host: localhost
+    port: 6379
 
 
 ---
@@ -44,3 +47,102 @@ server:
 
 client:
   name: "CLIENT3"
+---
+spring:
+  config:
+    activate:
+      on-profile: client4
+
+server:
+  port: 8083
+
+client:
+  name: "CLIENT4"
+---
+spring:
+  config:
+    activate:
+      on-profile: client5
+
+server:
+  port: 8084
+
+client:
+  name: "CLIENT5"
+---
+spring:
+  config:
+    activate:
+      on-profile: client6
+
+server:
+  port: 8085
+
+client:
+  name: "CLIENT6"
+---
+spring:
+  config:
+    activate:
+      on-profile: client7
+
+server:
+  port: 8086
+
+client:
+  name: "CLIENT7"
+---
+spring:
+  config:
+    activate:
+      on-profile: client8
+
+server:
+  port: 8087
+
+client:
+  name: "CLIENT8"
+---
+spring:
+  config:
+    activate:
+      on-profile: client9
+
+server:
+  port: 8088
+
+client:
+  name: "CLIENT9"
+---
+spring:
+  config:
+    activate:
+      on-profile: client10
+
+server:
+  port: 8089
+
+client:
+  name: "CLIENT10"
+---
+spring:
+  config:
+    activate:
+      on-profile: client11
+
+server:
+  port: 8090
+
+client:
+  name: "CLIENT11"
+---
+spring:
+  config:
+    activate:
+      on-profile: client12
+
+server:
+  port: 8092
+
+client:
+  name: "CLIENT12"

@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -25,6 +27,21 @@ public class ChunkDataSender {
     private String clientName;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
+
+    protected List<String> encode(String message) {
+        UUID uuid = UUID.randomUUID();
+
+        List<String> chunks = new ArrayList<>();
+        int chunkSize = 1024 * 512;  // 데이터 분할할 최대 길이 설정
+
+        for (int i = 0; i < message.length(); i += chunkSize) {
+            int end = Math.min(message.length(), i + chunkSize);
+            chunks.add(message.substring(i, end) + " " + uuid);
+        }
+
+        return chunks;
+    }
 
     /**
      *
@@ -49,6 +66,7 @@ public class ChunkDataSender {
                 @Override
                 public void onFailure(Throwable ex) {
                     System.err.println("Error while sending message: " + ex.getMessage());
+                    redisTemplate.opsForValue().set(topic, combinedData);
                 }
 
                 @Override
@@ -61,18 +79,31 @@ public class ChunkDataSender {
         }
     }
 
-    protected List<String> encode(String message) {
-        UUID uuid = UUID.randomUUID();
+    @Async
+    public void sendStoredData(String topic) {
+        List<String> storedData = redisTemplate.opsForList().range(topic, 0, -1);
+        if (storedData != null && !storedData.isEmpty()) {
+            for (String data : storedData) {
+                ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);
+                future.addCallback(new ListenableFutureCallback<>() {
+                    @Override
+                    public void onFailure(Throwable ex) {
+                        log.error("Error while sending message: " + ex.getMessage());
+                    }
 
-        List<String> chunks = new ArrayList<>();
-        int chunkSize = 1024 * 512;  // 데이터 분할할 최대 길이 설정
-
-        for (int i = 0; i < message.length(); i += chunkSize) {
-            int end = Math.min(message.length(), i + chunkSize);
-            chunks.add(message.substring(i, end) + " " + uuid);
+                    @Override
+                    public void onSuccess(SendResult<String, String> result) {
+                        RecordMetadata metadata = result.getRecordMetadata();
+                        log.info("Message sent to partition {} with offset {} at {}",
+                                metadata.partition(), metadata.offset(), metadata.timestamp());
+                    }
+                });
+            }
+            // Redis에서 전송한 메시지 삭제
+            redisTemplate.delete(topic);
         }
-
-        return chunks;
     }
+
+
 
 }
