@@ -5,4 +5,4 @@ ARG PROFILE
 ENV PROFILE=${PROFILE}
 VOLUME /tmp
 COPY build/libs/*.jar app.jar
-ENTRYPOINT ["sh", "-c", "java", "-Dspring.profiles.active=${PROFILE}, secret", "-jar","/app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILE}, secret", "-jar","/app.jar"]
