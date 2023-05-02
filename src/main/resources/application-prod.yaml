@@ -1,7 +1,6 @@
 netty:
   host: "43.201.55.255"
 
-
 ---
 spring:
   config:
