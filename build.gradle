@@ -33,12 +33,6 @@ dependencies {
 	// kafka
 	implementation 'org.springframework.kafka:spring-kafka'
 
-	// influxDB
-	implementation "com.influxdb:influxdb-client-java:6.6.0"
-
-	// redis
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
 	compileOnly 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
