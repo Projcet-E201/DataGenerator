@@ -32,10 +32,11 @@ public class DataSender {
     public <T> void sendData(String topic, String dataType,T data) {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
+        LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.SSS");
-        String currentTime = LocalDateTime.now().format(formatter);
+        String formattedDateTime = currentTime.format(formatter);
 
-        String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
+        String combinedData = clientName + " " + dataType + " " + data + " " + formattedDateTime;
 
         // 머신별로 토픽을 나누고, 내부 파티션에서는 라운드로빈 방식으로 저장
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, combinedData);
@@ -44,6 +45,9 @@ public class DataSender {
             @Override
             public void onFailure(Throwable ex) {
                 System.out.println("Error while sending message: " + ex.getMessage());
+
+                // TODO 실패시 로직 처리
+
             }
 
             @Override

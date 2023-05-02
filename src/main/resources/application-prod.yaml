@@ -1,0 +1,131 @@
+spring:
+  config:
+    activate:
+      on-profile: client1
+
+server:
+  port: 8080
+
+client:
+  name: "server1"
+---
+spring:
+  config:
+    activate:
+      on-profile: client2
+
+server:
+  port: 8081
+
+client:
+  name: "server2"
+---
+spring:
+  config:
+    activate:
+      on-profile: client3
+
+server:
+  port: 8080
+
+client:
+  name: "server3"
+---
+spring:
+  config:
+    activate:
+      on-profile: client4
+
+server:
+  port: 8081
+
+client:
+  name: "server4"
+---
+spring:
+  config:
+    activate:
+      on-profile: client5
+
+server:
+  port: 8080
+
+client:
+  name: "server5"
+---
+spring:
+  config:
+    activate:
+      on-profile: client6
+
+server:
+  port: 8081
+
+client:
+  name: "server6"
+---
+spring:
+  config:
+    activate:
+      on-profile: client7
+
+server:
+  port: 8080
+
+client:
+  name: "server7"
+---
+spring:
+  config:
+    activate:
+      on-profile: client8
+
+server:
+  port: 8081
+
+client:
+  name: "server8"
+---
+spring:
+  config:
+    activate:
+      on-profile: client9
+
+server:
+  port: 8080
+
+client:
+  name: "server9"
+---
+spring:
+  config:
+    activate:
+      on-profile: client10
+
+server:
+  port: 8081
+
+client:
+  name: "server10"
+---
+spring:
+  config:
+    activate:
+      on-profile: client11
+
+server:
+  port: 8080
+
+client:
+  name: "server11"
+---
+spring:
+  config:
+    activate:
+      on-profile: client12
+
+server:
+  port: 8081
+
+client:
+  name: "server12"
