@@ -11,7 +11,7 @@ server:
   port: 8080
 
 client:
-  name: "server1"
+  name: "CLIENT1"
 ---
 spring:
   config:
@@ -22,7 +22,7 @@ server:
   port: 8081
 
 client:
-  name: "server2"
+  name: "CLIENT2"
 ---
 spring:
   config:
@@ -33,7 +33,7 @@ server:
   port: 8080
 
 client:
-  name: "server3"
+  name: "CLIENT3"
 ---
 spring:
   config:
@@ -44,7 +44,7 @@ server:
   port: 8081
 
 client:
-  name: "server4"
+  name: "CLIENT4"
 ---
 spring:
   config:
@@ -55,7 +55,7 @@ server:
   port: 8080
 
 client:
-  name: "server5"
+  name: "CLIENT5"
 ---
 spring:
   config:
@@ -66,7 +66,7 @@ server:
   port: 8081
 
 client:
-  name: "server6"
+  name: "CLIENT6"
 ---
 spring:
   config:
@@ -77,7 +77,7 @@ server:
   port: 8080
 
 client:
-  name: "server7"
+  name: "CLIENT7"
 ---
 spring:
   config:
@@ -88,7 +88,7 @@ server:
   port: 8081
 
 client:
-  name: "server8"
+  name: "CLIENT8"
 ---
 spring:
   config:
@@ -99,7 +99,7 @@ server:
   port: 8080
 
 client:
-  name: "server9"
+  name: "CLIENT9"
 ---
 spring:
   config:
@@ -110,7 +110,7 @@ server:
   port: 8081
 
 client:
-  name: "server10"
+  name: "CLIENT10"
 ---
 spring:
   config:
@@ -121,7 +121,7 @@ server:
   port: 8080
 
 client:
-  name: "server11"
+  name: "CLIENT11"
 ---
 spring:
   config:
@@ -132,4 +132,4 @@ server:
   port: 8081
 
 client:
-  name: "server12"
+  name: "CLIENT12"

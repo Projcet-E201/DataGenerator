@@ -6,39 +6,4 @@ netty:
 
 spring:
   profiles:
-    active: client1
-
-
----
-spring:
-  config:
-    activate:
-      on-profile: client1
-
-server:
-  port: 8070
-
-client:
-  name: "SERVER1"
----
-spring:
-  config:
-    activate:
-      on-profile: client2
-
-server:
-  port: 8081
-
-client:
-  name: "SERVER2"
----
-spring:
-  config:
-    activate:
-      on-profile: client3
-
-server:
-  port: 8082
-
-client:
-  name: "SERVER3"
+    active: local

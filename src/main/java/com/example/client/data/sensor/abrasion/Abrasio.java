@@ -30,7 +30,6 @@ public class Abrasio extends AbstractData<Integer> {
 			while ((data = dataQueue.poll()) != null) {
 				maxData = Math.max(maxData, data);
 			}
-
 			dataSender.sendData(channel, dataType, maxData);
 		}, DataInfo.ABRASION_CALCULATE_TIME, DataInfo.ABRASION_CALCULATE_TIME, DataInfo.ABRASION_CALCULATE_TIME_UNIT);
 	}

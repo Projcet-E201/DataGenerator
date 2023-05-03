@@ -46,11 +46,11 @@ public class DataInfo {
 	public static final TimeUnit WATER_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit WATER_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
-	// Abrasio (마모량) 정보
+	// Abrasion (마모량) 정보
 	public static final int ABRASION_COUNT = 5;
 	public static final int ABRASION_GENERATE_TIME = 1;
 	public static final TimeUnit ABRASION_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
-	public static final int ABRASION_CALCULATE_TIME = 48;
+	public static final int ABRASION_CALCULATE_TIME = 1;
 	public static final TimeUnit ABRASION_CALCULATE_TIME_UNIT = TimeUnit.HOURS;
 
 	// 부하량 정보
