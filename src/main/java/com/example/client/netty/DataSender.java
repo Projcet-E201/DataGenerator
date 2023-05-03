@@ -27,7 +27,7 @@ public class DataSender {
 	public <T> void sendData(Channel channel, String dataType, T data) {
 		// 데이터 전송시간 ex) 2023-04-17/10:12:34.123
 		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.SSS");
 		String formattedDateTime = currentTime.format(formatter);
 
 
