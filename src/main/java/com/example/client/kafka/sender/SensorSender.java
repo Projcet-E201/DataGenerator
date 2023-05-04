@@ -31,7 +31,7 @@ public class SensorSender {
     public <T> void sendData(String topic, String dataType,T data) {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.SSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String currentTime = LocalDateTime.now().format(formatter);
 
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;

@@ -33,7 +33,7 @@ public class DataSender {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
         LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.SSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String formattedDateTime = currentTime.format(formatter);
 
         String combinedData = clientName + " " + dataType + " " + data + " " + formattedDateTime;
