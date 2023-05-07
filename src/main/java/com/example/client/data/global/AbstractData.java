@@ -6,9 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 import com.example.client.kafka.sender.ChunkDataSender;
-import com.example.client.kafka.sender.DataSender;
 
-import com.example.client.kafka.sender.SensorSender;
+import com.example.client.kafka.sender.DataSender;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,7 +15,6 @@ public abstract class AbstractData<T> {
 
 	protected final DataSender dataSender;
 	protected final ChunkDataSender chunkDataSender;
-	protected final SensorSender sensorSender;
 
 	protected final String dataType;
 	protected final Random random = new Random();
@@ -25,10 +23,9 @@ public abstract class AbstractData<T> {
 	protected final ScheduledExecutorService dataGenerationScheduler = Executors.newScheduledThreadPool(1);
 	protected final ScheduledExecutorService sendDataScheduler = Executors.newScheduledThreadPool(1);
 
-	public AbstractData(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
-		this.dataSender = dataSender;
+	public AbstractData(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
 		this.chunkDataSender = chunkDataSender;
-		this.sensorSender = sensorSender;
+		this.dataSender = dataSender;
 		this.dataType = dataType;
 	}
 

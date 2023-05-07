@@ -2,7 +2,6 @@ package com.example.client.data.machinestate;
 
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
-import com.example.client.kafka.sender.SensorSender;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.example.client.data.global.AbstractData;
@@ -14,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MachineState extends AbstractData<String> {
 
-	public MachineState(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
-		super(dataSender, chunkDataSender, sensorSender, dataType);
+	public MachineState(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
+		super(dataSender, chunkDataSender, dataType);
 	}
 
 	@Override

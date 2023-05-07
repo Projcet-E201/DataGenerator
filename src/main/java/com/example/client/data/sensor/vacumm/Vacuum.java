@@ -3,15 +3,14 @@ package com.example.client.data.sensor.vacumm;
 import com.example.client.data.global.AbstractData;
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
-import com.example.client.kafka.sender.SensorSender;
 import com.example.client.util.DataInfo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Vacuum extends AbstractData<Integer> {
 
-	public Vacuum(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
-		super(dataSender, chunkDataSender, sensorSender, dataType);
+	public Vacuum(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
+		super(dataSender, chunkDataSender, dataType);
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class Vacuum extends AbstractData<Integer> {
 				maxData = Math.max(maxData, data);
 			}
 
-			sensorSender.sendData("clientName", dataType, maxData);
+			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.VACUUM_CALCULATE_TIME, DataInfo.VACUUM_CALCULATE_TIME, DataInfo.VACUUM_CALCULATE_TIME_UNIT);
 	}
 }

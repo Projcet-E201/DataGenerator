@@ -3,7 +3,6 @@ package com.example.client.data.sensor.motor;
 import com.example.client.data.global.AbstractData;
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
-import com.example.client.kafka.sender.SensorSender;
 import com.example.client.util.DataInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Motor extends AbstractData<Integer> {
 
-	public Motor(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
-		super(dataSender, chunkDataSender, sensorSender, dataType);
+	public Motor(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
+		super(dataSender, chunkDataSender, dataType);
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class Motor extends AbstractData<Integer> {
 			while ((data = dataQueue.poll()) != null) {
 				maxData = Math.max(maxData, data);
 			}
-			sensorSender.sendData("clientName", dataType, maxData);
+			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.MOTOR_CALCULATE_TIME, DataInfo.MOTOR_CALCULATE_TIME, DataInfo.MOTOR_CALCULATE_TIME_UNIT);
 	}
 }

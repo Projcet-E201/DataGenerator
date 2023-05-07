@@ -2,7 +2,6 @@ package com.example.client.data.sensor.motor;
 
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
-import com.example.client.kafka.sender.SensorSender;
 import org.springframework.stereotype.Component;
 
 import com.example.client.data.global.AbstractDataManager;
@@ -14,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class MotorManager extends AbstractDataManager<Motor> {
 
-	public MotorManager(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender) {
-		super(dataSender, chunkDataSender, sensorSender, DataType.MOTOR);
+	public MotorManager(DataSender dataSender, ChunkDataSender chunkDataSender) {
+		super(dataSender, chunkDataSender, DataType.MOTOR);
 	}
 
 	@Override
 	protected Motor createDataInstance(String dataType) {
-		return new Motor(dataSender, chunkDataSender, sensorSender, dataType);
+		return new Motor(dataSender, chunkDataSender, dataType);
 	}
 }

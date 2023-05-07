@@ -71,3 +71,69 @@ server:
 
 client:
   name: "CLIENT6"
+---
+  spring:
+    config:
+      activate:
+        on-profile: client7
+
+  server:
+    port: 8086
+
+  client:
+    name: "CLIENT7"
+---
+spring:
+  config:
+    activate:
+      on-profile: client8
+
+server:
+  port: 8087
+
+client:
+  name: "CLIENT8"
+---
+spring:
+  config:
+    activate:
+      on-profile: client9
+
+server:
+  port: 8088
+
+client:
+  name: "CLIENT9"
+---
+spring:
+  config:
+    activate:
+      on-profile: client10
+
+server:
+  port: 8089
+
+client:
+  name: "CLIENT10"
+---
+spring:
+  config:
+    activate:
+      on-profile: client11
+
+server:
+  port: 8091
+
+client:
+  name: "CLIENT11"
+---
+spring:
+  config:
+    activate:
+      on-profile: client12
+
+server:
+  port: 8092
+
+client:
+  name: "CLIENT12"
