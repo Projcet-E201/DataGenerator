@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class WaterManager extends AbstractDataManager<Water> {
 
-	public WaterManager(DataSender dataSender, ChunkDataSender chunkDataSender, DataSender sensorSender) {
-		super(dataSender, chunkDataSender, sensorSender, DataType.WATER);
+	public WaterManager(DataSender dataSender, ChunkDataSender chunkDataSender) {
+		super(dataSender, chunkDataSender, DataType.WATER);
 	}
 
 	@Override
 	protected Water createDataInstance(String dataType) {
-		return new Water(dataSender, chunkDataSender, dataSender, dataType);
+		return new Water(dataSender, chunkDataSender, dataType);
 	}
 }
