@@ -35,7 +35,6 @@ public class DataSender {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
 		String formattedDateTime = seoulLocalTime.format(formatter);
 
-
 		String combinedData = clientName + " " + dataType + " " + data + " " + formattedDateTime;
 
 		ChannelFuture future = channel.writeAndFlush(combinedData);
