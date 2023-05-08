@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
   kafka:
     bootstrap-servers: plaintext://3.35.226.145:9092,plaintext://3.38.154.53:9092,plaintext://15.164.179.195:9092
     producer:
