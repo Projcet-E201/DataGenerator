@@ -2,7 +2,6 @@ package com.example.client.data.sensor.water;
 
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
-import com.example.client.kafka.sender.SensorSender;
 import org.springframework.stereotype.Component;
 
 import com.example.client.data.global.AbstractDataManager;
@@ -14,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class WaterManager extends AbstractDataManager<Water> {
 
-	public WaterManager(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender) {
-		super(dataSender, chunkDataSender, sensorSender, DataType.WATER);
+	public WaterManager(DataSender dataSender, ChunkDataSender chunkDataSender) {
+		super(dataSender, chunkDataSender, DataType.WATER);
 	}
 
 	@Override
 	protected Water createDataInstance(String dataType) {
-		return new Water(dataSender, chunkDataSender, sensorSender, dataType);
+		return new Water(dataSender, chunkDataSender, dataType);
 	}
 }

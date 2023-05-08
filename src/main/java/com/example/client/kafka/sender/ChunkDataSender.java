@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
+/**
+ * 1MB 보다 큰 데이터를 쪼개서 전송합니다.
+ * (ex. IMAGE)
+ */
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -41,7 +47,6 @@ public class ChunkDataSender {
     }
 
     /**
-     *
      * @param topic kafka topic 설정
      * @param dataType ex) MOTOR, AIR ...
      */
@@ -54,8 +59,8 @@ public class ChunkDataSender {
         String dataValue = "" + data;
         List<String> chunks = encode(dataValue);
 
-        for (int i = 0; i < chunks.size(); i++) {
-            String combinedData = clientName + " " + dataType + " " + chunks.get(i) + " " + currentTime;
+        for (String chunk : chunks) {
+            String combinedData = clientName + " " + dataType + " " + chunk + " " + currentTime;
 
             // 머신별로 토픽을 나누고, 내부 파티션에서는 라운드로빈 방식으로 저장
             ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, combinedData);

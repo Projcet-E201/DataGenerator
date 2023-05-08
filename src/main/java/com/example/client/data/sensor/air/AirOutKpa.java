@@ -3,15 +3,14 @@ package com.example.client.data.sensor.air;
 import com.example.client.data.global.AbstractData;
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
-import com.example.client.kafka.sender.SensorSender;
 import com.example.client.util.DataInfo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AirOutKpa extends AbstractData<Integer> {
 
-	public AirOutKpa(DataSender dataSender, ChunkDataSender chunkDataSender, SensorSender sensorSender, String dataType) {
-		super(dataSender, chunkDataSender, sensorSender, dataType);
+	public AirOutKpa(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
+		super(dataSender, chunkDataSender, dataType);
 	}
 
 	public void dataGenerate() {
@@ -32,7 +31,7 @@ public class AirOutKpa extends AbstractData<Integer> {
 				maxData = Math.max(maxData, data);
 			}
 
-			sensorSender.sendData("clientName", dataType, maxData);
+			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.AIR_OUT_KPA_CALCULATE_TIME, DataInfo.AIR_OUT_KPA_CALCULATE_TIME,
 		DataInfo.AIR_OUT_KPA_CALCULATE_TIME_UNIT);
 	}
