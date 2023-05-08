@@ -67,12 +67,6 @@ public class DataInfo {
 	public static final TimeUnit VELOCITY_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit VELOCITY_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
-	// MachineState 정보
-	public static final int MACHINE_STATE_COUNT = 1;
-	public static final int MACHINE_STATE_GENERATE_TIME = 1;
-	public static final int MACHINE_STATE_CALCULATE_TIME = 1;
-	public static final TimeUnit MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
-	public static final TimeUnit MACHINE_STATE_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Analog 정보
 	public static final int ANALOG_COUNT = 1;
@@ -88,6 +82,28 @@ public class DataInfo {
 	public static final int IMAGE_CALCULATE_TIME = 1;
 	public static final TimeUnit IMAGE_GENERATE_TIME_UNIT = TimeUnit.HOURS;
 	public static final TimeUnit IMAGE_CALCULATE_TIME_UNIT = TimeUnit.HOURS;
+
+
+	// MachineState 정보
+	public static final int MACHINE_STATE_COUNT = 1;
+	public static final int MACHINE_STATE_CALCULATE_TIME = 1;
+	public static final TimeUnit MACHINE_STATE_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
+
+	// MachineState 정보 - BOOLEAN
+	public static final int BOOLEAN_MACHINE_STATE_GENERATE_TIME = 7;
+	public static final TimeUnit BOOLEAN_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
+
+	// MachineState 정보 - DOUBLE
+	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 3;
+	public static final TimeUnit DOUBLE_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
+
+	// MachineState 정보 - INT
+	public static final int INT_MACHINE_STATE_GENERATE_TIME = 4;
+	public static final TimeUnit INT_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
+
+	// MachineState 정보 - STRING
+	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 1;
+	public static final TimeUnit STRING_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 
 	public static int getDataCountByType(DataType dataType) {

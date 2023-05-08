@@ -20,45 +20,47 @@ public class MachineState extends AbstractData<String> {
 	@Override
 	public void dataGenerate() {
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			// MachineState 데이터 생성 로직
 			StringBuilder data = new StringBuilder();
 
 			// Boolean Type 데이터 생성
-			for (int i = 1; i <= 10; i++) {
-				data.append("boolean").append(i).append(":");
-				data.append(random.nextBoolean() ? 1 : 0).append(",");
-			}
+			data.append("boolean").append(random.nextInt(11) + 1).append(":");
+			data.append(random.nextBoolean() ? 1 : 0);
+
+			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+		}, 0, DataInfo.BOOLEAN_MACHINE_STATE_GENERATE_TIME, DataInfo.BOOLEAN_MACHINE_STATE_GENERATE_TIME_UNIT);
+
+		dataGenerationScheduler.scheduleAtFixedRate(() -> {
+			StringBuilder data = new StringBuilder();
 
 			// Double Type 데이터 생성
-			for (int i = 1; i <= 10; i++) {
-				data.append("double").append(i).append(":");
-				data.append(String.format("%.3f", random.nextDouble() * 310.0 - 10.0)).append(",");
-			}
+			data.append("double").append(random.nextInt(11) + 1).append(":");
+			data.append(String.format("%.3f", random.nextDouble() * 310.0 - 10.0));
+
+			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+		}, 0, DataInfo.DOUBLE_MACHINE_STATE_GENERATE_TIME, DataInfo.DOUBLE_MACHINE_STATE_GENERATE_TIME_UNIT);
+
+		dataGenerationScheduler.scheduleAtFixedRate(() -> {
+			StringBuilder data = new StringBuilder();
 
 			// Int Type 데이터 생성
-			for (int i = 1; i <= 10; i++) {
-				data.append("int").append(i).append(":");
-				data.append(random.nextInt(1101) - 100).append(",");
-			}
+			data.append("int").append(random.nextInt(11) + 1).append(":");
+			data.append(random.nextInt(1101) - 100);
+
+			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+		}, 0, DataInfo.INT_MACHINE_STATE_GENERATE_TIME, DataInfo.INT_MACHINE_STATE_GENERATE_TIME_UNIT);
+
+		dataGenerationScheduler.scheduleAtFixedRate(() -> {
+			StringBuilder data = new StringBuilder();
 
 			// String Type 데이터 생성
-			for (int i = 1; i <= 10; i++) {
-				data.append("string").append(i).append(":");
-				String randomString = RandomStringUtils.randomAlphanumeric(1 + random.nextInt(50));
-				data.append(randomString).append(",");
-			}
+			data.append("string").append(random.nextInt(11) + 1).append(":");
+			String randomString = RandomStringUtils.randomAlphanumeric(1 + random.nextInt(50));
+			data.append(randomString);
 
-			dataQueue.offer(data.toString());
-		}, 0, DataInfo.MACHINE_STATE_GENERATE_TIME, DataInfo.MACHINE_STATE_GENERATE_TIME_UNIT);
+			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+		}, 0, DataInfo.STRING_MACHINE_STATE_GENERATE_TIME, DataInfo.STRING_MACHINE_STATE_GENERATE_TIME_UNIT);
 	}
 
 	@Override
-	public void kafkaDataSend() {
-		sendDataScheduler.scheduleAtFixedRate(() -> {
-			String data = dataQueue.poll();
-			if (data != null) {
-				dataSender.sendData("MACHINE_STATE", dataType, data);
-			}
-		}, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME_UNIT);
-	}
+	public void kafkaDataSend() {}
 }
