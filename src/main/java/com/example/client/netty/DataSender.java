@@ -21,11 +21,6 @@ public class DataSender {
 	@Value("${client.name}")
 	private String clientName;
 
-	/**
-	 *
-	 * @param channel netty 채널
-	 * @param dataType ex) MOTOR, AIR ...
-	 */
 	public <T> void sendData(Channel channel, String dataType, T data) {
 		// 데이터 전송시간 ex) 2023-04-17/10:12:34.123
 		LocalDateTime currentTime = LocalDateTime.now();
