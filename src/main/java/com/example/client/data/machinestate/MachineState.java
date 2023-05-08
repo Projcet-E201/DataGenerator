@@ -23,7 +23,7 @@ public class MachineState extends AbstractData<String> {
 			StringBuilder data = new StringBuilder();
 
 			// Boolean Type 데이터 생성
-			data.append("boolean").append(random.nextInt(11) + 1).append(":");
+			data.append("boolean").append(random.nextInt(10) + 1).append(":");
 			data.append(random.nextBoolean() ? 1 : 0);
 
 			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
@@ -33,7 +33,7 @@ public class MachineState extends AbstractData<String> {
 			StringBuilder data = new StringBuilder();
 
 			// Double Type 데이터 생성
-			data.append("double").append(random.nextInt(11) + 1).append(":");
+			data.append("double").append(random.nextInt(10) + 1).append(":");
 			data.append(String.format("%.3f", random.nextDouble() * 310.0 - 10.0));
 
 			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
@@ -43,7 +43,7 @@ public class MachineState extends AbstractData<String> {
 			StringBuilder data = new StringBuilder();
 
 			// Int Type 데이터 생성
-			data.append("int").append(random.nextInt(11) + 1).append(":");
+			data.append("int").append(random.nextInt(10) + 1).append(":");
 			data.append(random.nextInt(1101) - 100);
 
 			dataSender.sendData("MACHINE_STATE", dataType, data.toString());
@@ -53,7 +53,7 @@ public class MachineState extends AbstractData<String> {
 			StringBuilder data = new StringBuilder();
 
 			// String Type 데이터 생성
-			data.append("string").append(random.nextInt(11) + 1).append(":");
+			data.append("string").append(random.nextInt(10) + 1).append(":");
 			String randomString = RandomStringUtils.randomAlphanumeric(1 + random.nextInt(50));
 			data.append(randomString);
 
