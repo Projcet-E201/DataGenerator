@@ -92,7 +92,7 @@ public class DataInfo {
 	public static final TimeUnit BOOLEAN_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - DOUBLE
-	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 3;
+	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 5;
 	public static final TimeUnit DOUBLE_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - INT
@@ -100,7 +100,7 @@ public class DataInfo {
 	public static final TimeUnit INT_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - STRING
-	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 1;
+	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 10;
 	public static final TimeUnit STRING_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 
