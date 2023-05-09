@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MachineState extends AbstractData<String> {
-
 	public MachineState(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
 		super(dataSender, chunkDataSender, dataType);
 	}
@@ -20,58 +19,65 @@ public class MachineState extends AbstractData<String> {
 	@Override
 	public void dataGenerate() {
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			// MachineState 데이터 생성 로직
-			StringBuilder data = new StringBuilder();
 
 			// Boolean Type 데이터 생성
-			data.append("boolean").append(random.nextInt(11) + 1).append(":");
-			data.append(random.nextBoolean() ? 1 : 0).append(",");
+			for (int i = 1; i < 11; i++) {
+				StringBuilder data = new StringBuilder();
 
-			dataQueue.offer(data.toString());
-		}, 0, DataInfo.MACHINE_STATE_GENERATE_TIME, DataInfo.MACHINE_STATE_GENERATE_TIME_UNIT);
+				data.append("boolean").append(i).append(":");
+				data.append(random.nextBoolean() ? 1 : 0);
+
+				dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+			}
+
+		}, 0, DataInfo.BOOLEAN_MACHINE_STATE_GENERATE_TIME, DataInfo.BOOLEAN_MACHINE_STATE_GENERATE_TIME_UNIT);
 
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			// MachineState 데이터 생성 로직
-			StringBuilder data = new StringBuilder();
 
 			// Double Type 데이터 생성
-			data.append("double").append(random.nextInt(11) + 1).append(":");
-			data.append(String.format("%.3f", random.nextDouble() * 310.0 - 10.0)).append(",");
+			for(int i = 1; i < 11; i++) {
+				StringBuilder data = new StringBuilder();
 
-			dataQueue.offer(data.toString());
-		}, 0, DataInfo.MACHINE_STATE_GENERATE_TIME, DataInfo.MACHINE_STATE_GENERATE_TIME_UNIT);
+				data.append("double").append(i).append(":");
+				data.append(String.format("%.3f", random.nextDouble() * 310.0 - 10.0));
+
+				dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+			}
+
+		}, 0, DataInfo.DOUBLE_MACHINE_STATE_GENERATE_TIME, DataInfo.DOUBLE_MACHINE_STATE_GENERATE_TIME_UNIT);
 
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			// MachineState 데이터 생성 로직
-			StringBuilder data = new StringBuilder();
 
 			// Int Type 데이터 생성
-			data.append("int").append(random.nextInt(11) + 1).append(":");
-			data.append(random.nextInt(1101) - 100).append(",");
+			for (int i = 1; i < 11; i++) {
+				StringBuilder data = new StringBuilder();
 
-			dataQueue.offer(data.toString());
-		}, 0, DataInfo.MACHINE_STATE_GENERATE_TIME, DataInfo.MACHINE_STATE_GENERATE_TIME_UNIT);
+				data.append("int").append(i).append(":");
+				data.append(random.nextInt(1101) - 100);
+
+				dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+			}
+
+		}, 0, DataInfo.INT_MACHINE_STATE_GENERATE_TIME, DataInfo.INT_MACHINE_STATE_GENERATE_TIME_UNIT);
 
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			// MachineState 데이터 생성 로직
-			StringBuilder data = new StringBuilder();
 
 			// String Type 데이터 생성
-			data.append("string").append(random.nextInt(11) + 1).append(":");
-			String randomString = RandomStringUtils.randomAlphanumeric(1 + random.nextInt(50));
-			data.append(randomString).append(",");
-
-			dataQueue.offer(data.toString());
+			for (int i = 1; i < 11; i++) {
+				StringBuilder data = new StringBuilder();
+				data.append("string").append(i).append(":");
+				String randomString = RandomStringUtils.randomAlphanumeric(1 + random.nextInt(50));
+				data.append(randomString);
+				dataSender.sendData("MACHINE_STATE", dataType, data.toString());
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					throw new RuntimeException(e);
+				}
+			}
 		}, 0, DataInfo.STRING_MACHINE_STATE_GENERATE_TIME, DataInfo.STRING_MACHINE_STATE_GENERATE_TIME_UNIT);
 	}
 
 	@Override
-	public void kafkaDataSend() {
-		sendDataScheduler.scheduleAtFixedRate(() -> {
-			String data = dataQueue.poll();
-			if (data != null) {
-				dataSender.sendData("MACHINE_STATE", dataType, data);
-			}
-		}, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME, DataInfo.MACHINE_STATE_CALCULATE_TIME_UNIT);
-	}
+	public void kafkaDataSend() {}
 }
