@@ -46,6 +46,8 @@ public class DataSender {
         ListenableFuture<SendResult<String, String>> future;
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
+        this.saveData(dataType, data + "", currentTime);
+
         if(topic.equals("ANALOG") || topic.equals("MACHINE_STATE")) {
             future = kafkaTemplate.send(topic, combinedData);
         } else {
@@ -67,4 +69,33 @@ public class DataSender {
         });
     }
 
+    private void saveData(String dataType, String data, String time) {
+
+        String bigName = dataType.replaceAll("[0-9]", "");
+        String[] machineData;
+
+        if(dataType.equals("MACHINE_STATE")) {
+            machineData = data.split(":");
+            dataType = machineData[0].toUpperCase();
+            data = machineData[1];
+        }
+
+        try {
+            Point row = Point
+                    .measurement(bigName)     // MACHINE_STATE, ANALOG, IMAGE, MOTOR, VACUUM, ..
+                    .addTag("name", dataType)    // MOTOR1, VACUUM1, INT, STRING, DOUBLE ..., ANALOG1, IMAGE1
+                    .addTag("generate_time", time)
+                    .addField("value", data)
+                    .time(Instant.now(), WritePrecision.NS);
+
+            writeApi.writePoint(clientName, "semse", row);
+
+        } catch (NumberFormatException e) {
+            log.error("Machine State Failed to parse value {} as a Long. Exception message: {} {}", result[0], result[1], e.getMessage());
+            // 예외 처리 로직 추가
+        } catch (Exception e) {
+            log.error("Machine State Unexpected error occurred while adding TS data. Exception message: {}", e.getMessage());
+            // 예외 처리 로직 추가
+        }
+    }
 }
