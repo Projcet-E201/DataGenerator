@@ -1,4 +1,9 @@
 spring:
+  influx:
+    url: http://k8e201.p.ssafy.io:8086
+
+---
+spring:
   config:
     activate:
       on-profile: client1

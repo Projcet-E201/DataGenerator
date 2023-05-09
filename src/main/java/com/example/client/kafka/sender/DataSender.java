@@ -1,5 +1,8 @@
 package com.example.client.kafka.sender;
 
+import com.influxdb.client.WriteApi;
+import com.influxdb.client.domain.WritePrecision;
+import com.influxdb.client.write.Point;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -23,6 +27,7 @@ public class DataSender {
     @Value("${client.name}")
     private String clientName;
 
+    private final WriteApi writeApi;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     /**
