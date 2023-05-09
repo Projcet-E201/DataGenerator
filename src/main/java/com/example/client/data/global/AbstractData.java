@@ -20,8 +20,8 @@ public abstract class AbstractData<T> {
 	protected final Random random = new Random();
 	protected final ConcurrentLinkedQueue<T> dataQueue = new ConcurrentLinkedQueue<>();
 
-	protected final ScheduledExecutorService dataGenerationScheduler = Executors.newScheduledThreadPool(1);
-	protected final ScheduledExecutorService sendDataScheduler = Executors.newScheduledThreadPool(1);
+	protected final ScheduledExecutorService dataGenerationScheduler = Executors.newScheduledThreadPool(2);
+	protected final ScheduledExecutorService sendDataScheduler = Executors.newScheduledThreadPool(2);
 
 	public AbstractData(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
 		this.chunkDataSender = chunkDataSender;
