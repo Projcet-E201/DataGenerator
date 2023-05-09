@@ -7,63 +7,63 @@ public class DataInfo {
 	// Motor 정보
 	public static final int MOTOR_COUNT = 10;
 	public static final int MOTOR_GENERATE_TIME = 5;
-	public static final int MOTOR_CALCULATE_TIME = 50;	// 5
+	public static final int MOTOR_CALCULATE_TIME = 5;
 	public static final TimeUnit MOTOR_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 	public static final TimeUnit MOTOR_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Vacuum 정보
 	public static final int VACUUM_COUNT = 30;
 	public static final int VACUUM_GENERATE_TIME = 5;
-	public static final int VACUUM_CALCULATE_TIME = 100;		// 10
+	public static final int VACUUM_CALCULATE_TIME = 10;
 	public static final TimeUnit VACUUM_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 	public static final TimeUnit VACUUM_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// AirOutKpa 정보
 	public static final int AIR_OUT_KPA_COUNT = 5;
 	public static final int AIR_OUT_KPA_GENERATE_TIME = 5;
-	public static final int AIR_OUT_KPA_CALCULATE_TIME = 300;	// 30
+	public static final int AIR_OUT_KPA_CALCULATE_TIME = 30;
 	public static final TimeUnit AIR_OUT_KPA_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 	public static final TimeUnit AIR_OUT_KPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// AirOutMpa 정보
 	public static final int AIR_OUT_MPA_COUNT = 5;
 	public static final int AIR_OUT_MPA_GENERATE_TIME = 1;
-	public static final int AIR_OUT_MPA_CALCULATE_TIME = 100;	// 10
+	public static final int AIR_OUT_MPA_CALCULATE_TIME = 10;
 	public static final TimeUnit AIR_OUT_MPA_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit AIR_OUT_MPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// AirInKpa 정보
 	public static final int AIR_IN_KPA_COUNT = 10;
 	public static final int AIR_IN_KPA_GENERATE_TIME = 1;
-	public static final int AIR_IN_KPA_CALCULATE_TIME = 10;		// 1
+	public static final int AIR_IN_KPA_CALCULATE_TIME = 1;
 	public static final TimeUnit AIR_IN_KPA_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit AIR_IN_KPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Water 정보
 	public static final int WATER_COUNT = 10;
 	public static final int WATER_GENERATE_TIME = 1;
-	public static final int WATER_CALCULATE_TIME = 100;		// 10
+	public static final int WATER_CALCULATE_TIME = 10;
 	public static final TimeUnit WATER_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit WATER_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Abrasion (마모량) 정보
 	public static final int ABRASION_COUNT = 5;
 	public static final int ABRASION_GENERATE_TIME = 1;
-	public static final int ABRASION_CALCULATE_TIME = 10;	// 1
+	public static final int ABRASION_CALCULATE_TIME = 1;
 	public static final TimeUnit ABRASION_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit ABRASION_CALCULATE_TIME_UNIT = TimeUnit.HOURS;
 
 	// 부하량 정보
 	public static final int LOAD_COUNT = 5;
 	public static final int LOAD_GENERATE_TIME = 1;
-	public static final int LOAD_CALCULATE_TIME = 10;	// 1
+	public static final int LOAD_CALCULATE_TIME = 1;
 	public static final TimeUnit LOAD_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit LOAD_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
 	// Velocity (회전속도) 정보
 	public static final int VELOCITY_COUNT = 5;
 	public static final int VELOCITY_GENERATE_TIME = 1;
-	public static final int VELOCITY_CALCULATE_TIME = 10;	// 1
+	public static final int VELOCITY_CALCULATE_TIME = 1;
 	public static final TimeUnit VELOCITY_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit VELOCITY_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
@@ -71,7 +71,7 @@ public class DataInfo {
 	// Analog 정보
 	public static final int ANALOG_COUNT = 1;
 	public static final int ANALOG_GENERATE_TIME = 30;
-	public static final int ANALOG_CALCULATE_TIME =300;		// 30
+	public static final int ANALOG_CALCULATE_TIME =30;
 	public static final TimeUnit ANALOG_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit ANALOG_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
@@ -79,7 +79,7 @@ public class DataInfo {
 	// Image
 	public static final int IMAGE_COUNT = 1;
 	public static final int IMAGE_GENERATE_TIME = 1;
-	public static final int IMAGE_CALCULATE_TIME = 10;		// 1
+	public static final int IMAGE_CALCULATE_TIME = 1;
 	public static final TimeUnit IMAGE_GENERATE_TIME_UNIT = TimeUnit.HOURS;
 	public static final TimeUnit IMAGE_CALCULATE_TIME_UNIT = TimeUnit.HOURS;
 
@@ -88,19 +88,19 @@ public class DataInfo {
 	public static final int MACHINE_STATE_COUNT = 1;
 
 	// MachineState 정보 - BOOLEAN
-	public static final int BOOLEAN_MACHINE_STATE_GENERATE_TIME = 70;
+	public static final int BOOLEAN_MACHINE_STATE_GENERATE_TIME = 7;
 	public static final TimeUnit BOOLEAN_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - DOUBLE
-	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 30;
+	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 3;
 	public static final TimeUnit DOUBLE_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - INT
-	public static final int INT_MACHINE_STATE_GENERATE_TIME = 40;
+	public static final int INT_MACHINE_STATE_GENERATE_TIME = 4;
 	public static final TimeUnit INT_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - STRING
-	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 10;
+	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 1;
 	public static final TimeUnit STRING_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 
