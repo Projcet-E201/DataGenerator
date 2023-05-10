@@ -1,6 +1,6 @@
 spring:
   influx:
-    url: http://k8e201.p.ssafy.io:8086
+    url: http://influxdb:8086
 
 ---
 spring:
