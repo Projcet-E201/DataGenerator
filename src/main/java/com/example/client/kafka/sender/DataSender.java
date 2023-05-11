@@ -1,5 +1,8 @@
 package com.example.client.kafka.sender;
 
+import com.influxdb.client.WriteApi;
+import com.influxdb.client.domain.WritePrecision;
+import com.influxdb.client.write.Point;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -23,6 +27,7 @@ public class DataSender {
     @Value("${client.name}")
     private String clientName;
 
+    private final WriteApi writeApi;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     /**
@@ -40,6 +45,8 @@ public class DataSender {
 
         ListenableFuture<SendResult<String, String>> future;
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
+
+        this.saveData(dataType, data + "", currentTime);
 
         if(topic.equals("ANALOG") || topic.equals("MACHINE_STATE")) {
             future = kafkaTemplate.send(topic, combinedData);
@@ -60,5 +67,35 @@ public class DataSender {
                         " with offset " + metadata.offset() + " at " + metadata.timestamp());
             }
         });
+    }
+
+    private void saveData(String dataType, String data, String time) {
+
+        String bigName = dataType.replaceAll("[0-9]", "");
+        String[] machineData;
+
+        if(dataType.equals("MACHINE_STATE")) {
+            machineData = data.split(":");
+            dataType = machineData[0].toUpperCase();
+            data = machineData[1];
+        }
+
+        try {
+            Point row = Point
+                    .measurement(bigName)     // MACHINE_STATE, ANALOG, IMAGE, MOTOR, VACUUM, ..
+                    .addTag("name", dataType)    // MOTOR1, VACUUM1, INT, STRING, DOUBLE ..., ANALOG1, IMAGE1
+                    .addTag("generate_time", time)
+                    .addField("value", data)
+                    .time(Instant.now(), WritePrecision.NS);
+
+            writeApi.writePoint(clientName, "semse", row);
+
+        } catch (NumberFormatException e) {
+            log.error("Machine State Failed to parse value {} as a Long. Exception message: {} {}", dataType, data, e.getMessage());
+            // 예외 처리 로직 추가
+        } catch (Exception e) {
+            log.error("Machine State Unexpected error occurred while adding TS data. Exception message: {}", e.getMessage());
+            // 예외 처리 로직 추가
+        }
     }
 }

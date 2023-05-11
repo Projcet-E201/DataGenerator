@@ -12,22 +12,36 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class InfluxDBConfig {
 
-    @Value("${spring.influx.url}")
+    @Value("${spring.influxdb.url}")
     private String url;
 
-    @Value("${spring.influx.username}")
+    @Value("${spring.influxdb.username}")
     private String username;
 
-    @Value("${spring.influx.password}")
+    @Value("${spring.influxdb.password}")
     private String password;
 
-    @Value("${spring.influx.token}")
+    @Value("${spring.influxdb.token}")
     private String token;
 
 
     @Bean
     public InfluxDBClient influxDBClient() {
         return InfluxDBClientFactory.create(url, token.toCharArray());
+    }
+
+    @Bean
+    public WriteApi writeApi(InfluxDBClient influxDBClient) {
+        WriteOptions options = WriteOptions.builder()
+                .bufferLimit(100_000_000)
+                .build();
+
+        WriteApi writeApi = influxDBClient.makeWriteApi(options);
+        writeApi.listenEvents(BackpressureEvent.class, event -> {
+            //  BackpressureEvent 처리 로직
+        });
+
+        return writeApi;
     }
 
 }

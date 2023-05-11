@@ -1,5 +1,5 @@
 spring:
-  influx:
+  influxdb:
     url: http://influxdb:8086
 
 ---
