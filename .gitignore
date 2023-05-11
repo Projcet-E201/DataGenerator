@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### 생성 파일 ###
+received_images/
+received_analog/

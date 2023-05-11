@@ -50,7 +50,11 @@ public class Analog extends AbstractData<String> {
 			String data = dataQueue.poll();
 			if (data != null) {
 				String dataConvent = data + "|";
-				dataSender.sendData("ANALOG", dataType, dataConvent);
+				try {
+					chunkDataSender.sendData("ANALOG", dataType, dataConvent);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME_UNIT);
 	}

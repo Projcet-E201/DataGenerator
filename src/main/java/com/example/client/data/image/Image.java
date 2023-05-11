@@ -1,5 +1,6 @@
 package com.example.client.data.image;
 
+import java.io.IOException;
 import java.util.Base64;
 import java.util.Random;
 
@@ -33,7 +34,11 @@ public class Image extends AbstractData<String> {
 			if (data != null) {
 				// 데이터 구분자
 				String dataConvent = data + "|";
-				chunkDataSender.sendData("IMAGE", dataType, dataConvent);
+				try {
+					chunkDataSender.sendData("IMAGE", dataType, dataConvent);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME_UNIT);
 	}
