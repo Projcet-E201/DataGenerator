@@ -30,17 +30,4 @@ public class InfluxDBConfig {
         return InfluxDBClientFactory.create(url, token.toCharArray());
     }
 
-    @Bean
-    public WriteApi writeApi(InfluxDBClient influxDBClient) {
-        WriteOptions options = WriteOptions.builder()
-                .bufferLimit(100_000_000)
-                .build();
-
-        WriteApi writeApi = influxDBClient.makeWriteApi(options);
-        writeApi.listenEvents(BackpressureEvent.class, event -> {
-            //  BackpressureEvent 처리 로직
-        });
-
-        return writeApi;
-    }
 }

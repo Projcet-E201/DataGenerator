@@ -1,5 +1,6 @@
 package com.example.client.kafka.sender;
 
+import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.WriteApi;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
@@ -21,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor
 public class DataSender {
 
     @Value("${client.name}")
@@ -29,6 +29,11 @@ public class DataSender {
 
     private final WriteApi writeApi;
     private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public DataSender(InfluxDBClient influxDBClient, KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+        this.writeApi = influxDBClient.makeWriteApi();
+    }
 
     /**
      *
