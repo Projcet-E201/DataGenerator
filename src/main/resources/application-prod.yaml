@@ -1,4 +1,9 @@
 spring:
+  influx:
+    url: http://influxdb:8086
+
+---
+spring:
   config:
     activate:
       on-profile: client1
