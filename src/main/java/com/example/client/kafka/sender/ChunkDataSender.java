@@ -38,6 +38,20 @@ public class ChunkDataSender {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
+    protected List<String> encode(String message) {
+        UUID uuid = UUID.randomUUID();
+
+        List<String> chunks = new ArrayList<>();
+        int chunkSize = 1024 * 512;  // 데이터 분할할 최대 길이 설정
+
+        for (int i = 0; i < message.length(); i += chunkSize) {
+            int end = Math.min(message.length(), i + chunkSize);
+            chunks.add(message.substring(i, end) + " " + uuid);
+        }
+
+        return chunks;
+    }
+
     /**
      * @param topic kafka topic 설정
      * @param dataType ex) MOTOR, AIR ...
@@ -51,11 +65,6 @@ public class ChunkDataSender {
         String dataValue = "" + data;
         List<String> chunks = this.encode(dataValue);
 
-        if(topic.startsWith("IMAGE")) {
-            this.saveImageData(dataValue, currentTime);
-        } else {
-            this.saveAnalogData(dataValue);
-        }
 
         for (String chunk : chunks) {
             String combinedData = clientName + " " + dataType + " " + chunk + " " + currentTime;
@@ -75,75 +84,6 @@ public class ChunkDataSender {
                             " with offset " + metadata.offset() + " at " + metadata.timestamp());
                 }
             });
-        }
-    }
-
-    protected List<String> encode(String message) {
-        UUID uuid = UUID.randomUUID();
-
-        List<String> chunks = new ArrayList<>();
-        int chunkSize = 1024 * 512;  // 데이터 분할할 최대 길이 설정
-
-        for (int i = 0; i < message.length(); i += chunkSize) {
-            int end = Math.min(message.length(), i + chunkSize);
-            chunks.add(message.substring(i, end) + " " + uuid);
-        }
-
-        return chunks;
-    }
-
-    /**
-     * IMAGE 데이터 루트 경로에 저장
-     * */
-
-    protected void saveImageData(String dataValue, String time) {
-        final String IMAGE_SAVE_PATH = "received_images";
-
-        String fileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")) + ".jpg";
-        Path savePath = Paths.get(IMAGE_SAVE_PATH, fileName);
-
-        try {
-            // 경로에 폴더가 없으면 생성
-            if (!Files.exists(savePath.getParent())) {
-                log.info("Creating directories: {}", savePath.getParent());
-                Files.createDirectories(savePath.getParent());
-            }
-            // 이미지 데이터를 파일로 저장
-            try (OutputStream outputStream = Files.newOutputStream(savePath)) {
-                outputStream.write(dataValue.getBytes());
-                System.out.println("IMAGE");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * ANALOG 데이터 루트 경로에 저장
-     * */
-    protected void saveAnalogData(String dataValue) {
-
-        final String SAVE_PATH = "received_analog";
-        final String ZIP_EXTENSION = ".zip";
-
-        String fileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")) + ZIP_EXTENSION;
-        Path savePath = Paths.get(SAVE_PATH, fileName);
-
-        try {
-            // 경로에 폴더가 없으면 생성
-            if (!Files.exists(savePath.getParent())) {
-                log.info("Creating directories: {}", savePath.getParent());
-                Files.createDirectories(savePath.getParent());
-            }
-
-            // 압축 데이터를 파일로 저장
-            try (BufferedWriter writer = Files.newBufferedWriter(savePath)) {
-                writer.write(dataValue);
-                System.out.println("ANALOG");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
