@@ -1,6 +1,6 @@
 spring:
   influx:
-    url: http://3.38.164.234:8086
+    url: http://3.36.89.177:8086
 
 ---
 spring:
