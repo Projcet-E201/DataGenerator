@@ -10,12 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -56,14 +50,14 @@ public class ChunkDataSender {
      * @param topic kafka topic 설정
      * @param dataType ex) MOTOR, AIR ...
      */
-    public <T> void sendData(String topic, String dataType,T data) throws IOException {
+    public <T> void sendData(String topic, String dataType,T data) {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String currentTime = LocalDateTime.now().format(formatter);
 
         String dataValue = "" + data;
-        List<String> chunks = this.encode(dataValue);
+        List<String> chunks = encode(dataValue);
 
 
         for (String chunk : chunks) {
