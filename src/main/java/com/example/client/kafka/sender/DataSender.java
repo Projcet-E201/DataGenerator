@@ -42,6 +42,7 @@ public class DataSender {
         ZonedDateTime seoulTime = LocalDateTime.now().atZone(seoulZoneId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String currentTime = seoulTime.format(formatter);
+        log.info("time = {}", currentTime);
 
         ListenableFuture<SendResult<String, String>> future;
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
