@@ -20,6 +20,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -49,14 +51,16 @@ public class ChunkDataSender {
     public <T> void sendData(String topic, String dataType,T data) throws IOException {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        ZonedDateTime seoulTime = ZonedDateTime.now(seoulZoneId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
-        String currentTime = LocalDateTime.now().format(formatter);
+        String currentTime = seoulTime.format(formatter);
 
         String dataValue = "" + data;
         List<String> chunks = this.encode(dataValue);
 
         if(topic.startsWith("IMAGE")) {
-            this.saveImageData(dataValue, currentTime);
+            this.saveImageData(dataValue);
         } else {
             this.saveAnalogData(dataValue);
         }
@@ -100,7 +104,7 @@ public class ChunkDataSender {
      * IMAGE 데이터 루트 경로에 저장
      * */
 
-    protected void saveImageData(String dataValue, String time) {
+    protected void saveImageData(String dataValue) {
         final String IMAGE_SAVE_PATH = "received_images";
 
         String fileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")) + ".jpg";
