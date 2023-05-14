@@ -42,7 +42,7 @@ public class DataInfo {
 	// Water 정보
 	public static final int WATER_COUNT = 10;
 	public static final int WATER_GENERATE_TIME = 1;
-	public static final int WATER_CALCULATE_TIME = 10*10;
+	public static final int WATER_CALCULATE_TIME = 10;
 	public static final TimeUnit WATER_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit WATER_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
@@ -88,19 +88,19 @@ public class DataInfo {
 	public static final int MACHINE_STATE_COUNT = 1;
 
 	// MachineState 정보 - BOOLEAN
-	public static final int BOOLEAN_MACHINE_STATE_GENERATE_TIME = 7*10*6;
+	public static final int BOOLEAN_MACHINE_STATE_GENERATE_TIME = 7*10;
 	public static final TimeUnit BOOLEAN_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - DOUBLE
-	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 5*10*6;
+	public static final int DOUBLE_MACHINE_STATE_GENERATE_TIME = 5*10;
 	public static final TimeUnit DOUBLE_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - INT
-	public static final int INT_MACHINE_STATE_GENERATE_TIME = 4*10*6;
+	public static final int INT_MACHINE_STATE_GENERATE_TIME = 4*10;
 	public static final TimeUnit INT_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// MachineState 정보 - STRING
-	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 10*10*6;
+	public static final int STRING_MACHINE_STATE_GENERATE_TIME = 10*10;
 	public static final TimeUnit STRING_MACHINE_STATE_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 
 
