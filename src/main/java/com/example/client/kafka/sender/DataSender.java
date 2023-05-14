@@ -14,7 +14,6 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,11 +37,9 @@ public class DataSender {
     public <T> void sendData(String topic, String dataType,T data) {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
-        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
-        ZonedDateTime seoulTime = ZonedDateTime.now(seoulZoneId);
+        ZonedDateTime seoulTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String currentTime = seoulTime.format(formatter);
-        log.info("time = {}", currentTime);
 
         ListenableFuture<SendResult<String, String>> future;
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
