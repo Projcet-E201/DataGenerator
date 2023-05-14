@@ -6,6 +6,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -98,7 +99,7 @@ public class ChunkDataSender {
     /**
      * IMAGE 데이터 루트 경로에 저장
      * */
-
+    @Async
     protected void saveImageData(String dataValue, String time) {
         final String IMAGE_SAVE_PATH = "received_images";
 
@@ -125,6 +126,7 @@ public class ChunkDataSender {
     /**
      * ANALOG 데이터 루트 경로에 저장
      * */
+    @Async
     protected void saveAnalogData(String dataValue) {
 
         final String SAVE_PATH = "received_analog";

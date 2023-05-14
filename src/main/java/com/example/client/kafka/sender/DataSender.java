@@ -9,6 +9,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -67,7 +68,8 @@ public class DataSender {
         });
     }
 
-    private void saveData(String dataType, String dataValue, String time) {
+    @Async
+    protected void saveData(String dataType, String dataValue, String time) {
 
         String type = dataType;
         String value = dataValue;
