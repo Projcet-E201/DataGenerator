@@ -41,7 +41,7 @@ public class DataInfo {
 
 	// Water 정보
 	public static final int WATER_COUNT = 10;
-	public static final int WATER_GENERATE_TIME = 1;
+	public static final int WATER_GENERATE_TIME = 10;
 	public static final int WATER_CALCULATE_TIME = 10;
 	public static final TimeUnit WATER_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit WATER_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
