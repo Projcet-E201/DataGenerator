@@ -22,17 +22,7 @@ public class Abrasio extends AbstractData<Integer> {
 	@Override
 	public void dataGenerate() {
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			final int[] slopes = {1, 3, 4, 2, 5};		// 기울기 설정
-
-			int idx = Integer.parseInt(dataType.replaceAll("[^0-9]", "")) - 1;
-			System.out.println(time[idx]);
-			int data = slopes[idx] * time[idx];
-			time[idx] += 1;
-
-			if(data + slopes[idx] > 40) {
-				time[idx] = 0;
-			}
-
+			Integer data = random.nextInt(41);
 			dataQueue.offer(data);
 		}, 0, DataInfo.ABRASION_GENERATE_TIME, DataInfo.ABRASION_GENERATE_TIME_UNIT);
 	}
@@ -40,10 +30,13 @@ public class Abrasio extends AbstractData<Integer> {
 	@Override
 	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
+			int maxData = Integer.MIN_VALUE;
 			Integer data;
 			while ((data = dataQueue.poll()) != null) {
-				dataSender.sendData("clientName", dataType, data);
+				maxData = Math.max(maxData, data);
 			}
+
+			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.ABRASION_CALCULATE_TIME, DataInfo.ABRASION_CALCULATE_TIME, DataInfo.ABRASION_CALCULATE_TIME_UNIT);
 	}
 }

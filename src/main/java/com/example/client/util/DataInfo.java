@@ -51,7 +51,7 @@ public class DataInfo {
 	public static final int ABRASION_GENERATE_TIME = 1;
 	public static final int ABRASION_CALCULATE_TIME = 1;
 	public static final TimeUnit ABRASION_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
-	public static final TimeUnit ABRASION_CALCULATE_TIME_UNIT = TimeUnit.HOURS;
+	public static final TimeUnit ABRASION_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
 	// 부하량 정보
 	public static final int LOAD_COUNT = 5;
