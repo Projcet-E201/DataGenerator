@@ -1,15 +1,13 @@
 package com.example.client.data.image;
 
-import java.io.IOException;
-import java.util.Base64;
-import java.util.Random;
-
 import com.example.client.data.global.AbstractData;
 import com.example.client.kafka.sender.ChunkDataSender;
 import com.example.client.kafka.sender.DataSender;
 import com.example.client.util.DataInfo;
-
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Base64;
+import java.util.Random;
 
 @Slf4j
 public class Image extends AbstractData<String> {
@@ -34,11 +32,7 @@ public class Image extends AbstractData<String> {
 			if (data != null) {
 				// 데이터 구분자
 				String dataConvent = data + "|";
-				try {
-					chunkDataSender.sendData("IMAGE", dataType, dataConvent);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+				chunkDataSender.sendData("IMAGE", dataType, dataConvent);
 			}
 		}, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME, DataInfo.IMAGE_CALCULATE_TIME_UNIT);
 	}

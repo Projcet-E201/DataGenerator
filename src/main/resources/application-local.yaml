@@ -1,5 +1,5 @@
 spring:
-  influx:
+  influxdb:
     url: http://3.38.164.234:8086
 
 ---
