@@ -1,5 +1,5 @@
 spring:
-  influx:
+  influxdb:
     url: http://influxdb:8086
 
 ---
@@ -9,7 +9,7 @@ spring:
       on-profile: client1
 
 server:
-  port: 8080
+  port: 8084
 
 client:
   name: "CLIENT1"
@@ -20,7 +20,7 @@ spring:
       on-profile: client2
 
 server:
-  port: 8081
+  port: 8085
 
 client:
   name: "CLIENT2"
@@ -31,7 +31,7 @@ spring:
       on-profile: client3
 
 server:
-  port: 8080
+  port: 8084
 
 client:
   name: "CLIENT3"
@@ -42,7 +42,7 @@ spring:
       on-profile: client4
 
 server:
-  port: 8081
+  port: 8085
 
 client:
   name: "CLIENT4"
@@ -53,7 +53,7 @@ spring:
       on-profile: client5
 
 server:
-  port: 8080
+  port: 8084
 
 client:
   name: "CLIENT5"
@@ -64,7 +64,7 @@ spring:
       on-profile: client6
 
 server:
-  port: 8081
+  port: 8085
 
 client:
   name: "CLIENT6"
@@ -75,7 +75,7 @@ spring:
       on-profile: client7
 
 server:
-  port: 8080
+  port: 8084
 
 client:
   name: "CLIENT7"
@@ -86,7 +86,7 @@ spring:
       on-profile: client8
 
 server:
-  port: 8081
+  port: 8085
 
 client:
   name: "CLIENT8"
@@ -97,7 +97,7 @@ spring:
       on-profile: client9
 
 server:
-  port: 8080
+  port: 8084
 
 client:
   name: "CLIENT9"
@@ -108,7 +108,7 @@ spring:
       on-profile: client10
 
 server:
-  port: 8081
+  port: 8085
 
 client:
   name: "CLIENT10"
@@ -119,7 +119,7 @@ spring:
       on-profile: client11
 
 server:
-  port: 8080
+  port: 8084
 
 client:
   name: "CLIENT11"
@@ -130,7 +130,7 @@ spring:
       on-profile: client12
 
 server:
-  port: 8081
+  port: 8085
 
 client:
   name: "CLIENT12"

@@ -12,16 +12,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class InfluxDBConfig {
 
-    @Value("${spring.influx.url}")
+    @Value("${spring.influxdb.url}")
     private String url;
 
-    @Value("${spring.influx.username}")
+    @Value("${spring.influxdb.username}")
     private String username;
 
-    @Value("${spring.influx.password}")
+    @Value("${spring.influxdb.password}")
     private String password;
 
-    @Value("${spring.influx.token}")
+    @Value("${spring.influxdb.token}")
     private String token;
 
 
@@ -43,4 +43,5 @@ public class InfluxDBConfig {
 
         return writeApi;
     }
+
 }

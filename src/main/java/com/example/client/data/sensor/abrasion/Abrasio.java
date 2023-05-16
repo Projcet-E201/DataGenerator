@@ -10,8 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Abrasio extends AbstractData<Integer> {
 
+	public int[] time = new int[5];		// 센서 개수
+
 	public Abrasio(DataSender dataSender, ChunkDataSender chunkDataSender, String dataType) {
 		super(dataSender, chunkDataSender, dataType);
+		for (int i = 0; i < 5; i++) {
+			time[i] = 0;
+		}
 	}
 
 	@Override

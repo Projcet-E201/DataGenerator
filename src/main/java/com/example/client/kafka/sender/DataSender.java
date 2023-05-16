@@ -9,6 +9,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -37,8 +38,7 @@ public class DataSender {
     public <T> void sendData(String topic, String dataType,T data) {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
-        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
-        ZonedDateTime seoulTime = LocalDateTime.now().atZone(seoulZoneId);
+        ZonedDateTime seoulTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String currentTime = seoulTime.format(formatter);
 
@@ -47,7 +47,7 @@ public class DataSender {
 
         this.saveData(dataType, data + "", currentTime);
 
-        if(topic.equals("ANALOG") || topic.equals("MACHINE_STATE")) {
+        if(topic.equals("MACHINE_STATE")) {
             future = kafkaTemplate.send(topic, combinedData);
         } else {
             future = kafkaTemplate.send(clientName, combinedData);
@@ -68,7 +68,8 @@ public class DataSender {
         });
     }
 
-    private void saveData(String dataType, String dataValue, String time) {
+    @Async
+    protected void saveData(String dataType, String dataValue, String time) {
 
         String type = dataType;
         String value = dataValue;

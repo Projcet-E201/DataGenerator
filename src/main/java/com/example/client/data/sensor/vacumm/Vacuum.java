@@ -16,7 +16,8 @@ public class Vacuum extends AbstractData<Integer> {
 	@Override
 	public void dataGenerate() {
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			Integer data = random.nextInt(131) - 100;
+//			Integer data = random.nextInt(131) - 100;  // -100 ~ 30. 절대값 범위가 안 맞아서 division에서 가공할 때 적용
+			Integer data = random.nextInt(71) + 30; // 30 ~ 100
 			dataQueue.offer(data);
 		}, 0, DataInfo.VACUUM_GENERATE_TIME, DataInfo.VACUUM_GENERATE_TIME_UNIT);
 	}

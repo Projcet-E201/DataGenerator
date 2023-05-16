@@ -1,8 +1,5 @@
 package com.example.client.kafka.sender;
 
-import com.influxdb.client.WriteApi;
-import com.influxdb.client.domain.WritePrecision;
-import com.influxdb.client.write.Point;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -14,17 +11,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,15 +41,28 @@ public class ChunkDataSender {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
+    protected List<String> encode(String message) {
+        UUID uuid = UUID.randomUUID();
+
+        List<String> chunks = new ArrayList<>();
+        int chunkSize = 1024 * 512;  // 데이터 분할할 최대 길이 설정
+
+        for (int i = 0; i < message.length(); i += chunkSize) {
+            int end = Math.min(message.length(), i + chunkSize);
+            chunks.add(message.substring(i, end) + " " + uuid);
+        }
+
+        return chunks;
+    }
+
     /**
      * @param topic kafka topic 설정
      * @param dataType ex) MOTOR, AIR ...
      */
-    public <T> void sendData(String topic, String dataType,T data) throws IOException {
+    public <T> void sendData(String topic, String dataType,T data) {
 
         // 데이터 전송시간 ex) 2023-04-17/10:12:34.123
-        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
-        ZonedDateTime seoulTime = ZonedDateTime.now(seoulZoneId);
+        ZonedDateTime seoulTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss");
         String currentTime = seoulTime.format(formatter);
 
@@ -86,24 +96,10 @@ public class ChunkDataSender {
         }
     }
 
-    protected List<String> encode(String message) {
-        UUID uuid = UUID.randomUUID();
-
-        List<String> chunks = new ArrayList<>();
-        int chunkSize = 1024 * 512;  // 데이터 분할할 최대 길이 설정
-
-        for (int i = 0; i < message.length(); i += chunkSize) {
-            int end = Math.min(message.length(), i + chunkSize);
-            chunks.add(message.substring(i, end) + " " + uuid);
-        }
-
-        return chunks;
-    }
-
     /**
      * IMAGE 데이터 루트 경로에 저장
      * */
-
+    @Async
     protected void saveImageData(String dataValue) {
         final String IMAGE_SAVE_PATH = "received_images";
 
@@ -130,6 +126,7 @@ public class ChunkDataSender {
     /**
      * ANALOG 데이터 루트 경로에 저장
      * */
+    @Async
     protected void saveAnalogData(String dataValue) {
 
         final String SAVE_PATH = "received_analog";

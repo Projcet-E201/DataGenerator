@@ -1,18 +1,17 @@
 package com.example.client.data.analog;
 
+import com.example.client.data.global.AbstractData;
+import com.example.client.kafka.sender.ChunkDataSender;
+import com.example.client.kafka.sender.DataSender;
+import com.example.client.util.DataInfo;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import com.example.client.data.global.AbstractData;
-import com.example.client.kafka.sender.ChunkDataSender;
-import com.example.client.kafka.sender.DataSender;
-import com.example.client.util.DataInfo;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Analog extends AbstractData<String> {
@@ -50,11 +49,7 @@ public class Analog extends AbstractData<String> {
 			String data = dataQueue.poll();
 			if (data != null) {
 				String dataConvent = data + "|";
-				try {
-					chunkDataSender.sendData("ANALOG", dataType, dataConvent);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+				chunkDataSender.sendData("ANALOG", dataType, dataConvent);
 			}
 		}, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME, DataInfo.ANALOG_CALCULATE_TIME_UNIT);
 	}

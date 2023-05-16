@@ -16,7 +16,7 @@ public class Water extends AbstractData<Integer> {
 	@Override
 	public void dataGenerate() {
 		dataGenerationScheduler.scheduleAtFixedRate(() -> {
-			Integer data = random.nextInt(401);
+			Integer data = random.nextInt(5);
 			dataQueue.offer(data);
 		}, 0, DataInfo.WATER_GENERATE_TIME, DataInfo.WATER_GENERATE_TIME_UNIT);
 	}
