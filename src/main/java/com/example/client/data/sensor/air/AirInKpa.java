@@ -22,9 +22,11 @@ public class AirInKpa extends AbstractData<Integer> {
 
 	@Override
 	public void kafkaDataSend() {
-		sendDataScheduler.scheduleAtFixedRate(
-				() -> dataSender.sendData("clientName", dataType, dataQueue.poll()),
-				DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME,
-				DataInfo.AIR_IN_KPA_CALCULATE_TIME_UNIT);
+		sendDataScheduler.scheduleAtFixedRate(() -> {
+			if(!dataQueue.isEmpty()) {
+				int value = dataQueue.poll();
+				dataSender.sendData("AIR_INT_KPA", dataType, value);
+			}
+		}, DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME_UNIT);
 	}
 }

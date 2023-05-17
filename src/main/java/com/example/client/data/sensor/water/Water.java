@@ -24,13 +24,10 @@ public class Water extends AbstractData<Integer> {
 	@Override
 	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
-			int maxData = Integer.MIN_VALUE;
-			Integer data;
-			while ((data = dataQueue.poll()) != null) {
-				maxData = Math.max(maxData, data);
+			if(!dataQueue.isEmpty()) {
+				int value = dataQueue.poll();
+				dataSender.sendData("WATER", dataType, value);
 			}
-
-			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.WATER_CALCULATE_TIME, DataInfo.WATER_CALCULATE_TIME, DataInfo.WATER_CALCULATE_TIME_UNIT);
 	}
 }

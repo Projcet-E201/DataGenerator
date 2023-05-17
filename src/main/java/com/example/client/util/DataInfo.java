@@ -7,9 +7,9 @@ public class DataInfo {
 	// Motor 정보
 	public static final int MOTOR_COUNT = 10;
 	public static final int MOTOR_GENERATE_TIME = 5;
-	public static final int MOTOR_CALCULATE_TIME = 5*10;
+	public static final int MOTOR_CALCULATE_TIME = 5;
 	public static final TimeUnit MOTOR_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
-	public static final TimeUnit MOTOR_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
+	public static final TimeUnit MOTOR_CALCULATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	// Vacuum 정보
 	public static final int VACUUM_COUNT = 30;
