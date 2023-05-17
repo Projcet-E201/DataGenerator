@@ -96,6 +96,8 @@ public class MachineState extends AbstractData<String> {
 				data.append(randomString);
 				dataSender.sendData("MACHINE_STATE", dataType, data.toString());
 				try {
+
+					log.info("data : {}", data);
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					throw new RuntimeException(e);
