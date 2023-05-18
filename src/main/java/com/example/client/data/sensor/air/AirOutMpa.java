@@ -23,13 +23,10 @@ public class AirOutMpa extends AbstractData<Double> {
 	@Override
 	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
-			double maxData = Double.MIN_VALUE;
-			Double data;
-			while ((data = dataQueue.poll()) != null) {
-				maxData = Math.max(maxData, data);
+			if(!dataQueue.isEmpty()) {
+				double value = dataQueue.poll();
+				dataSender.sendData("AIR_OUT_MPA", dataType, value);
 			}
-
-			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.AIR_OUT_MPA_CALCULATE_TIME, DataInfo.AIR_OUT_MPA_CALCULATE_TIME,
 		DataInfo.AIR_OUT_MPA_CALCULATE_TIME_UNIT);
 	}

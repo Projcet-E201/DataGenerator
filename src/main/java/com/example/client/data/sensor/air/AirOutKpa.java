@@ -25,13 +25,10 @@ public class AirOutKpa extends AbstractData<Integer> {
 	public void kafkaDataSend() {
 		// 30초마다 생성된 데이터 중 최대값을 찾는 코드
 		sendDataScheduler.scheduleAtFixedRate(() -> {
-			int maxData = Integer.MIN_VALUE;
-			Integer data;
-			while ((data = dataQueue.poll()) != null) {
-				maxData = Math.max(maxData, data);
+			if(!dataQueue.isEmpty()) {
+				int value = dataQueue.poll();
+				dataSender.sendData("AIR_OUT_KPA", dataType, value);
 			}
-
-			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.AIR_OUT_KPA_CALCULATE_TIME, DataInfo.AIR_OUT_KPA_CALCULATE_TIME,
 		DataInfo.AIR_OUT_KPA_CALCULATE_TIME_UNIT);
 	}

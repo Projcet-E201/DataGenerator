@@ -26,13 +26,10 @@ public class Velocity extends AbstractData<Integer> {
 	@Override
 	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
-			int maxData = Integer.MIN_VALUE;
-			Integer data;
-			while ((data = dataQueue.poll()) != null) {
-				maxData = Math.max(maxData, data);
+			if(!dataQueue.isEmpty()) {
+				int value = dataQueue.poll();
+				dataSender.sendData("VELOCITY", dataType, value);
 			}
-
-			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.VELOCITY_CALCULATE_TIME, DataInfo.VELOCITY_CALCULATE_TIME, DataInfo.VELOCITY_CALCULATE_TIME_UNIT);
 	}
 }

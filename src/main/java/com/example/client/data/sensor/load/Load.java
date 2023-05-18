@@ -29,13 +29,10 @@ public class Load extends AbstractData<Integer> {
 	@Override
 	public void kafkaDataSend() {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
-			int maxData = Integer.MIN_VALUE;
-			Integer data;
-			while ((data = dataQueue.poll()) != null) {
-				maxData = Math.max(maxData, data);
+			if(!dataQueue.isEmpty()) {
+				int value = dataQueue.poll();
+				dataSender.sendData("LOAD", dataType, value);
 			}
-
-			dataSender.sendData("clientName", dataType, maxData);
 		}, DataInfo.LOAD_CALCULATE_TIME, DataInfo.LOAD_CALCULATE_TIME, DataInfo.LOAD_CALCULATE_TIME_UNIT);
 	}
 }

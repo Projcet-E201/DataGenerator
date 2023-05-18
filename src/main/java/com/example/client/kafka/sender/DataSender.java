@@ -45,13 +45,9 @@ public class DataSender {
         ListenableFuture<SendResult<String, String>> future;
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
-        this.saveData(dataType, data + "", currentTime);
+//        this.saveData(dataType, data + "", currentTime);
 
-        if(topic.equals("MACHINE_STATE")) {
-            future = kafkaTemplate.send(topic, combinedData);
-        } else {
-            future = kafkaTemplate.send(clientName, combinedData);
-        }
+        future = kafkaTemplate.send(topic, combinedData);
 
         future.addCallback(new ListenableFutureCallback<>() {
             @Override
