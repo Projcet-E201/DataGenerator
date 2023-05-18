@@ -4,66 +4,68 @@ import java.util.concurrent.TimeUnit;
 
 public class DataInfo {
 
+	private static int multiple = 5;
+
 	// Motor 정보
 	public static final int MOTOR_COUNT = 10;
-	public static final int MOTOR_GENERATE_TIME = 5;
-	public static final int MOTOR_CALCULATE_TIME = 5;
+	public static final int MOTOR_GENERATE_TIME = 5 * multiple;
+	public static final int MOTOR_CALCULATE_TIME = 5 * multiple;
 	public static final TimeUnit MOTOR_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 	public static final TimeUnit MOTOR_CALCULATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	// Vacuum 정보
 	public static final int VACUUM_COUNT = 30;
-	public static final int VACUUM_GENERATE_TIME = 5;
-	public static final int VACUUM_CALCULATE_TIME = 5;
+	public static final int VACUUM_GENERATE_TIME = 5 * multiple;
+	public static final int VACUUM_CALCULATE_TIME = 5 * multiple;
 	public static final TimeUnit VACUUM_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 	public static final TimeUnit VACUUM_CALCULATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	// AirOutKpa 정보
 	public static final int AIR_OUT_KPA_COUNT = 5;
-	public static final int AIR_OUT_KPA_GENERATE_TIME = 5;
-	public static final int AIR_OUT_KPA_CALCULATE_TIME = 5;
+	public static final int AIR_OUT_KPA_GENERATE_TIME = 5 * multiple;
+	public static final int AIR_OUT_KPA_CALCULATE_TIME = 5 * multiple;
 	public static final TimeUnit AIR_OUT_KPA_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 	public static final TimeUnit AIR_OUT_KPA_CALCULATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	// AirOutMpa 정보
 	public static final int AIR_OUT_MPA_COUNT = 5;
-	public static final int AIR_OUT_MPA_GENERATE_TIME = 1;
-	public static final int AIR_OUT_MPA_CALCULATE_TIME = 1;
+	public static final int AIR_OUT_MPA_GENERATE_TIME = multiple;
+	public static final int AIR_OUT_MPA_CALCULATE_TIME = multiple;
 	public static final TimeUnit AIR_OUT_MPA_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit AIR_OUT_MPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// AirInKpa 정보
 	public static final int AIR_IN_KPA_COUNT = 10;
-	public static final int AIR_IN_KPA_GENERATE_TIME = 1;
-	public static final int AIR_IN_KPA_CALCULATE_TIME = 1;
+	public static final int AIR_IN_KPA_GENERATE_TIME = multiple;
+	public static final int AIR_IN_KPA_CALCULATE_TIME = multiple;
 	public static final TimeUnit AIR_IN_KPA_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit AIR_IN_KPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Water 정보
 	public static final int WATER_COUNT = 10;
-	public static final int WATER_GENERATE_TIME = 1;
-	public static final int WATER_CALCULATE_TIME = 1;
+	public static final int WATER_GENERATE_TIME = multiple;
+	public static final int WATER_CALCULATE_TIME = multiple;
 	public static final TimeUnit WATER_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit WATER_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Abrasion (마모량) 정보
 	public static final int ABRASION_COUNT = 5;
-	public static final int ABRASION_GENERATE_TIME = 1;
-	public static final int ABRASION_CALCULATE_TIME = 1;
+	public static final int ABRASION_GENERATE_TIME = multiple;
+	public static final int ABRASION_CALCULATE_TIME = multiple;
 	public static final TimeUnit ABRASION_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit ABRASION_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
 	// 부하량 정보
 	public static final int LOAD_COUNT = 5;
-	public static final int LOAD_GENERATE_TIME = 1;
-	public static final int LOAD_CALCULATE_TIME = 1;
+	public static final int LOAD_GENERATE_TIME = multiple;
+	public static final int LOAD_CALCULATE_TIME = multiple;
 	public static final TimeUnit LOAD_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit LOAD_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
 	// Velocity (회전속도) 정보
 	public static final int VELOCITY_COUNT = 5;
-	public static final int VELOCITY_GENERATE_TIME = 1;
-	public static final int VELOCITY_CALCULATE_TIME = 1;
+	public static final int VELOCITY_GENERATE_TIME = multiple;
+	public static final int VELOCITY_CALCULATE_TIME = multiple;
 	public static final TimeUnit VELOCITY_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit VELOCITY_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
