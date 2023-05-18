@@ -25,7 +25,7 @@ public class AirInKpa extends AbstractData<Integer> {
 		sendDataScheduler.scheduleAtFixedRate(() -> {
 			if(!dataQueue.isEmpty()) {
 				int value = dataQueue.poll();
-				dataSender.sendData("AIR_INT_KPA", dataType, value);
+				dataSender.sendData("AIR_IN_KPA", dataType, value);
 			}
 		}, DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME, DataInfo.AIR_IN_KPA_CALCULATE_TIME_UNIT);
 	}
