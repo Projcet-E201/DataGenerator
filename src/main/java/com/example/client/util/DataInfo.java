@@ -14,35 +14,35 @@ public class DataInfo {
 	// Vacuum 정보
 	public static final int VACUUM_COUNT = 30;
 	public static final int VACUUM_GENERATE_TIME = 5;
-	public static final int VACUUM_CALCULATE_TIME = 10*10;
+	public static final int VACUUM_CALCULATE_TIME = 5;
 	public static final TimeUnit VACUUM_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
-	public static final TimeUnit VACUUM_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
+	public static final TimeUnit VACUUM_CALCULATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	// AirOutKpa 정보
 	public static final int AIR_OUT_KPA_COUNT = 5;
 	public static final int AIR_OUT_KPA_GENERATE_TIME = 5;
-	public static final int AIR_OUT_KPA_CALCULATE_TIME = 30*10;
+	public static final int AIR_OUT_KPA_CALCULATE_TIME = 5;
 	public static final TimeUnit AIR_OUT_KPA_GENERATE_TIME_UNIT = TimeUnit.MILLISECONDS;
-	public static final TimeUnit AIR_OUT_KPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
+	public static final TimeUnit AIR_OUT_KPA_CALCULATE_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	// AirOutMpa 정보
 	public static final int AIR_OUT_MPA_COUNT = 5;
 	public static final int AIR_OUT_MPA_GENERATE_TIME = 1;
-	public static final int AIR_OUT_MPA_CALCULATE_TIME = 10*10;
+	public static final int AIR_OUT_MPA_CALCULATE_TIME = 1;
 	public static final TimeUnit AIR_OUT_MPA_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit AIR_OUT_MPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// AirInKpa 정보
 	public static final int AIR_IN_KPA_COUNT = 10;
 	public static final int AIR_IN_KPA_GENERATE_TIME = 1;
-	public static final int AIR_IN_KPA_CALCULATE_TIME = 1*10;
+	public static final int AIR_IN_KPA_CALCULATE_TIME = 1;
 	public static final TimeUnit AIR_IN_KPA_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit AIR_IN_KPA_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 
 	// Water 정보
 	public static final int WATER_COUNT = 10;
-	public static final int WATER_GENERATE_TIME = 10;
-	public static final int WATER_CALCULATE_TIME = 10;
+	public static final int WATER_GENERATE_TIME = 1;
+	public static final int WATER_CALCULATE_TIME = 1;
 	public static final TimeUnit WATER_GENERATE_TIME_UNIT = TimeUnit.SECONDS;
 	public static final TimeUnit WATER_CALCULATE_TIME_UNIT = TimeUnit.SECONDS;
 

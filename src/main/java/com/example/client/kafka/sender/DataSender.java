@@ -45,25 +45,23 @@ public class DataSender {
         ListenableFuture<SendResult<String, String>> future;
         String combinedData = clientName + " " + dataType + " " + data + " " + currentTime;
 
-        if(topic.equals("MOTOR")) {
-            future = kafkaTemplate.send(topic, combinedData);
+//        this.saveData(dataType, data + "", currentTime);
 
-    //        this.saveData(dataType, data + "", currentTime);
+        future = kafkaTemplate.send(topic, combinedData);
 
-            future.addCallback(new ListenableFutureCallback<>() {
-                @Override
-                public void onFailure(Throwable ex) {
-                    System.out.println("Error while sending message: " + ex.getMessage());
-                }
+        future.addCallback(new ListenableFutureCallback<>() {
+            @Override
+            public void onFailure(Throwable ex) {
+                System.out.println("Error while sending message: " + ex.getMessage());
+            }
 
-                @Override
-                public void onSuccess(SendResult<String, String> result) {
-                    RecordMetadata metadata = result.getRecordMetadata();
-                    System.out.println("Message sent to partition " +  metadata.topic() + " - " + metadata.partition() +
-                            " with offset " + metadata.offset() + " at " + metadata.timestamp());
-                }
-            });
-        }
+            @Override
+            public void onSuccess(SendResult<String, String> result) {
+                RecordMetadata metadata = result.getRecordMetadata();
+                System.out.println("Message sent to partition " +  metadata.topic() + " - " + metadata.partition() +
+                        " with offset " + metadata.offset() + " at " + metadata.timestamp());
+            }
+        });
     }
 
     @Async
