@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DataInfo {
 
-	private static int multiple = 1;
+	private static int multiple = 5;
 
 	// Motor 정보
 	public static final int MOTOR_COUNT = 10;
