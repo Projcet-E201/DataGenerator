@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: plaintext://3.38.164.6:9092,plaintext://3.34.254.10:9092,plaintext://15.165.7.7:9092
+    bootstrap-servers: plaintext://3.35.223.68:9092,plaintext://3.36.11.229:9092,plaintext://15.165.59.223:9092,plaintext://3.34.43.153:9092,plaintext://52.78.98.144:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

@@ -5,11 +5,11 @@ import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.client.write.Point;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 @Slf4j
@@ -27,6 +28,7 @@ public class DataSender {
     @Value("${client.name}")
     private String clientName;
 
+    private AtomicInteger dataCount = new AtomicInteger(0);
     private final WriteApi writeApi;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
@@ -57,11 +59,15 @@ public class DataSender {
 
             @Override
             public void onSuccess(SendResult<String, String> result) {
-                RecordMetadata metadata = result.getRecordMetadata();
-                System.out.println("Message sent to partition " +  metadata.topic() + " - " + metadata.partition() +
-                        " with offset " + metadata.offset() + " at " + metadata.timestamp());
+                dataCount.incrementAndGet();
             }
         });
+    }
+
+    @Scheduled(fixedRate = 1000*60)
+    public void printDataCount() {
+        int count = dataCount.getAndSet(0); // 데이터 수 가져오고 초기화
+        log.info("1분 간 전송 데이터 개수 : " + count);
     }
 
     @Async
