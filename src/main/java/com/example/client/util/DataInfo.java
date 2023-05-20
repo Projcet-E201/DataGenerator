@@ -50,22 +50,22 @@ public class DataInfo {
 
 	// Abrasion (마모량) 정보
 	public static final int ABRASION_COUNT = 5;
-	public static final int ABRASION_GENERATE_TIME = multiple;
-	public static final int ABRASION_CALCULATE_TIME = multiple;
+	public static final int ABRASION_GENERATE_TIME = 1;
+	public static final int ABRASION_CALCULATE_TIME = 1;
 	public static final TimeUnit ABRASION_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit ABRASION_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
 	// 부하량 정보
 	public static final int LOAD_COUNT = 5;
-	public static final int LOAD_GENERATE_TIME = multiple;
-	public static final int LOAD_CALCULATE_TIME = multiple;
+	public static final int LOAD_GENERATE_TIME = 1;
+	public static final int LOAD_CALCULATE_TIME = 1;
 	public static final TimeUnit LOAD_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit LOAD_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
 	// Velocity (회전속도) 정보
 	public static final int VELOCITY_COUNT = 5;
-	public static final int VELOCITY_GENERATE_TIME = multiple;
-	public static final int VELOCITY_CALCULATE_TIME = multiple;
+	public static final int VELOCITY_GENERATE_TIME = 1;
+	public static final int VELOCITY_CALCULATE_TIME = 1;
 	public static final TimeUnit VELOCITY_GENERATE_TIME_UNIT = TimeUnit.MINUTES;
 	public static final TimeUnit VELOCITY_CALCULATE_TIME_UNIT = TimeUnit.MINUTES;
 
